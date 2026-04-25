@@ -1,0 +1,2568 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>改訂長谷川式簡易知能評価スケール（HDS-R）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=Zen+Old+Mincho:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f1ea;
+    --bg-card: #fffef9;
+    --ink: #2a2520;
+    --ink-soft: #5a524a;
+    --accent: #8b3a2f;
+    --accent-light: #c76c5a;
+    --sage: #6b8e6b;
+    --gold: #b89454;
+    --paper-shadow: 0 2px 0 rgba(42,37,32,0.04), 0 20px 40px -20px rgba(42,37,32,0.15);
+    --border: rgba(42,37,32,0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--bg);
+    background-image: 
+      radial-gradient(circle at 20% 10%, rgba(139,58,47,0.04) 0%, transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(107,142,107,0.04) 0%, transparent 40%);
+    color: var(--ink);
+    min-height: 100vh;
+    line-height: 1.7;
+    padding: 20px;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: 
+      repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(42,37,32,0.008) 2px, rgba(42,37,32,0.008) 3px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .app {
+    max-width: 780px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  header {
+    text-align: center;
+    padding: 40px 20px 30px;
+    position: relative;
+  }
+
+  .subtitle-en {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .title-main {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: clamp(22px, 4vw, 30px);
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+
+  .title-sub {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 14px;
+    color: var(--accent);
+    letter-spacing: 0.3em;
+    font-weight: 500;
+  }
+
+  .ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .ornament-line {
+    width: 60px;
+    height: 1px;
+    background: var(--ink-soft);
+    opacity: 0.3;
+  }
+
+  .ornament-diamond {
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    transform: rotate(45deg);
+  }
+
+  .screen {
+    background: var(--bg-card);
+    border-radius: 4px;
+    padding: 40px 36px;
+    box-shadow: var(--paper-shadow);
+    border: 1px solid var(--border);
+    position: relative;
+  }
+
+  .screen::before {
+    content: '';
+    position: absolute;
+    top: 12px; left: 12px; right: 12px; bottom: 12px;
+    border: 1px solid var(--border);
+    pointer-events: none;
+    border-radius: 2px;
+  }
+
+  .start-content {
+    text-align: center;
+    position: relative;
+    padding: 20px 0;
+  }
+
+  .start-kanji {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 72px;
+    color: var(--accent);
+    opacity: 0.15;
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    letter-spacing: 0.2em;
+    pointer-events: none;
+  }
+
+  .start-intro {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 18px;
+    color: var(--ink);
+    margin: 70px 0 24px;
+    line-height: 2;
+    position: relative;
+  }
+
+  .start-description {
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin: 24px auto;
+    max-width: 520px;
+    text-align: left;
+    line-height: 1.9;
+    padding: 20px;
+    background: rgba(184,148,84,0.05);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .disclaimer {
+    font-size: 12px;
+    color: var(--ink-soft);
+    line-height: 1.8;
+    padding: 16px 20px;
+    background: rgba(139,58,47,0.04);
+    border-left: 3px solid var(--accent);
+    text-align: left;
+    margin: 24px auto 32px;
+    max-width: 520px;
+  }
+
+  .btn {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 16px;
+    padding: 16px 48px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    letter-spacing: 0.2em;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    position: relative;
+  }
+
+  .btn-primary {
+    background: var(--ink);
+    color: var(--bg);
+    box-shadow: 0 4px 12px rgba(42,37,32,0.2);
+  }
+
+  .btn-primary:hover {
+    background: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(139,58,47,0.3);
+  }
+
+  .btn-primary:disabled {
+    background: var(--ink-soft);
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--ink);
+  }
+
+  .btn-secondary:hover {
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  .progress-bar {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 24px;
+    padding: 0 4px;
+  }
+
+  .progress-step {
+    flex: 1;
+    height: 3px;
+    background: rgba(42,37,32,0.1);
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .progress-step.done { background: var(--sage); }
+  .progress-step.current { background: rgba(139,58,47,0.2); }
+
+  .progress-step.current::after {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; height: 100%;
+    width: 50%;
+    background: var(--accent);
+    animation: progressPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes progressPulse {
+    0%, 100% { width: 30%; }
+    50% { width: 70%; }
+  }
+
+  .question-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .question-number { font-family: 'Zen Old Mincho', serif; }
+
+  .q-label {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--ink-soft);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .q-num {
+    font-size: 36px;
+    color: var(--accent);
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .q-num.q-num-info {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 22px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+  }
+
+  .q-num-total {
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin-left: 8px;
+  }
+
+  .question-text {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 20px;
+    line-height: 2;
+    color: var(--ink);
+    margin: 28px 0;
+    padding: 24px 28px;
+    background: rgba(107,142,107,0.06);
+    border-left: 3px solid var(--sage);
+  }
+
+  .answer-area { margin: 28px 0; }
+
+  .text-input {
+    width: 100%;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 22px;
+    padding: 16px 20px;
+    border: 1px solid var(--border);
+    border-bottom: 2px solid var(--ink-soft);
+    background: var(--bg-card);
+    color: var(--ink);
+    outline: none;
+    transition: all 0.2s;
+    border-radius: 2px 2px 0 0;
+  }
+
+  .text-input:focus {
+    border-bottom-color: var(--accent);
+    background: #fffffe;
+  }
+
+  .text-input::placeholder {
+    color: var(--ink-soft);
+    opacity: 0.5;
+  }
+
+  .select-wrap {
+    position: relative;
+    display: inline-block;
+  }
+
+  .select-wrap::after {
+    content: '▾';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--accent);
+    pointer-events: none;
+    font-size: 14px;
+  }
+
+  .select-input {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 20px;
+    padding: 14px 42px 14px 18px;
+    border: 1px solid var(--border);
+    border-bottom: 2px solid var(--ink-soft);
+    background: var(--bg-card);
+    color: var(--ink);
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    min-width: 110px;
+    border-radius: 2px 2px 0 0;
+    transition: border-color 0.2s;
+  }
+
+  .select-input:focus { border-bottom-color: var(--accent); }
+  .select-input:invalid { color: var(--ink-soft); }
+
+  .single-select-wrap {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 16px;
+    padding: 40px 0;
+  }
+
+  .unit-label {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 22px;
+    color: var(--ink-soft);
+  }
+
+  .date-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: baseline;
+    gap: 8px 12px;
+    padding: 24px 0;
+  }
+
+  .date-field {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+
+  .calc-display {
+    text-align: center;
+    margin: 32px 0;
+  }
+
+  .calc-stage {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+  }
+
+  .calc-row {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 32px;
+    color: var(--ink);
+    margin-bottom: 28px;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .calc-input {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 40px;
+    width: 180px;
+    text-align: center;
+    border: none;
+    border-bottom: 2px solid var(--ink);
+    background: transparent;
+    color: var(--accent);
+    font-weight: 700;
+    padding: 6px;
+    outline: none;
+  }
+
+  .calc-input:focus { border-color: var(--accent); }
+
+  /* ─── FLASH DISPLAY (for digits & objects) ─── */
+  .flash-stage {
+    margin: 20px 0;
+    min-height: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(42,37,32,0.02);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    padding: 20px;
+  }
+
+  /* ─── 5 OBJECTS FLASH (all-at-once) ─── */
+  .objects-flash-wrap {
+    width: 100%;
+    position: relative;
+    animation: flashIn 0.4s ease-out;
+  }
+
+  .objects-flash-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+  }
+
+  @media (max-width: 600px) {
+    .objects-flash-grid { gap: 6px; }
+  }
+
+  .objects-flash-item {
+    aspect-ratio: 1;
+    background: var(--bg-card);
+    border: 2px solid var(--accent);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px;
+    box-shadow: 0 4px 12px rgba(139,58,47,0.1);
+    animation: objFlashItemIn 0.5s ease-out both;
+  }
+
+  .objects-flash-item:nth-child(1) { animation-delay: 0.05s; }
+  .objects-flash-item:nth-child(2) { animation-delay: 0.15s; }
+  .objects-flash-item:nth-child(3) { animation-delay: 0.25s; }
+  .objects-flash-item:nth-child(4) { animation-delay: 0.35s; }
+  .objects-flash-item:nth-child(5) { animation-delay: 0.45s; }
+
+  @keyframes objFlashItemIn {
+    from { opacity: 0; transform: translateY(15px) scale(0.92); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .objects-flash-item .flash-object-svg {
+    width: 50%;
+    height: 50%;
+    color: var(--accent);
+  }
+
+  .objects-flash-name {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 13px;
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* Corner timer for object display */
+  .obj-timer-corner {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 56px;
+    height: 56px;
+    z-index: 2;
+  }
+
+  .obj-timer-svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+  }
+
+  .obj-ring-bg {
+    fill: rgba(255,254,249,0.85);
+    stroke: rgba(42,37,32,0.1);
+    stroke-width: 5;
+  }
+
+  .obj-ring-progress {
+    fill: none;
+    stroke: var(--sage);
+    stroke-width: 5;
+    stroke-linecap: round;
+    stroke-dasharray: 251.3;
+    transition: stroke-dashoffset 1s linear, stroke 0.3s ease;
+  }
+
+  .obj-ring-progress.warning { stroke: var(--gold); }
+  .obj-ring-progress.danger { stroke: var(--accent); }
+
+  .obj-ring-num {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 22px;
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  .obj-ring-num.danger {
+    color: var(--accent);
+    animation: timerPulse 0.5s ease-in-out infinite;
+  }
+
+  @media (max-width: 600px) {
+    .obj-timer-corner { width: 44px; height: 44px; top: 6px; right: 6px; }
+    .obj-ring-num { font-size: 18px; }
+    .objects-flash-name { font-size: 11px; }
+  }
+
+  .flash-idle {
+    text-align: center;
+    color: var(--ink-soft);
+    font-family: 'Shippori Mincho', serif;
+    font-size: 14px;
+    letter-spacing: 0.2em;
+  }
+
+  .flash-idle-icon {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 48px;
+    color: var(--accent);
+    opacity: 0.3;
+    margin-bottom: 12px;
+    letter-spacing: 0.2em;
+  }
+
+  .flash-counter {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 13px;
+    color: var(--ink-soft);
+    letter-spacing: 0.1em;
+  }
+
+  .flash-countdown {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 64px;
+    color: var(--gold);
+    font-weight: 700;
+    animation: countdownPulse 1s ease-in-out infinite;
+  }
+
+  .flash-starting {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 16px;
+    color: var(--ink-soft);
+    letter-spacing: 0.2em;
+    animation: startingFade 1s ease-in-out;
+  }
+
+  @keyframes startingFade {
+    0% { opacity: 0; }
+    30%, 100% { opacity: 1; }
+  }
+
+  @keyframes countdownPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(0.95); }
+  }
+
+  .flash-digit {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 140px;
+    color: var(--accent);
+    font-weight: 700;
+    animation: flashIn 0.3s ease-out;
+  }
+
+  @keyframes flashIn {
+    from { opacity: 0; transform: scale(0.6); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .flash-object {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    animation: flashIn 0.3s ease-out;
+  }
+
+  .flash-object-svg {
+    width: 120px;
+    height: 120px;
+    color: var(--accent);
+  }
+
+  .flash-object-name {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 32px;
+    color: var(--ink);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+
+  .flash-done {
+    text-align: center;
+    animation: flashIn 0.4s ease-out;
+  }
+
+  .flash-done-icon {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 48px;
+    color: var(--sage);
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    margin-bottom: 8px;
+  }
+
+  .flash-done-text {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 15px;
+    color: var(--ink-soft);
+    letter-spacing: 0.15em;
+  }
+
+  .flash-controls {
+    text-align: center;
+    margin: 20px 0;
+  }
+
+  .flash-start-btn {
+    font-family: 'Shippori Mincho', serif;
+    padding: 14px 40px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 15px;
+    letter-spacing: 0.2em;
+    transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(139,58,47,0.2);
+  }
+
+  .flash-start-btn:hover {
+    background: #6d2c22;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(139,58,47,0.3);
+  }
+
+  .flash-start-btn:disabled {
+    background: var(--ink-soft);
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .flash-replay-note {
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-top: 10px;
+    font-style: italic;
+  }
+
+  .digits-input {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 32px;
+    width: 260px;
+    text-align: center;
+    letter-spacing: 0.2em;
+    border: none;
+    border-bottom: 2px solid var(--ink);
+    background: transparent;
+    color: var(--accent);
+    font-weight: 700;
+    padding: 8px;
+    outline: none;
+  }
+
+  .digits-input:focus { border-color: var(--accent); }
+
+  .digits-input:disabled {
+    color: var(--ink-soft);
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .section-block {
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed var(--border);
+  }
+
+  .section-block:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .section-label {
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    color: var(--ink-soft);
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  .words-display {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin: 32px 0;
+  }
+
+  .word-card {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 34px;
+    padding: 28px 36px;
+    background: var(--bg-card);
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    box-shadow: 0 4px 12px rgba(139,58,47,0.15);
+    animation: wordReveal 0.6s ease-out both;
+  }
+
+  .word-card:nth-child(1) { animation-delay: 0.1s; }
+  .word-card:nth-child(2) { animation-delay: 0.3s; }
+  .word-card:nth-child(3) { animation-delay: 0.5s; }
+
+  @keyframes wordReveal {
+    from { opacity: 0; transform: translateY(20px) scale(0.9); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .memo-message {
+    text-align: center;
+    padding: 18px;
+    background: rgba(184,148,84,0.1);
+    border-radius: 2px;
+    margin: 24px 0;
+    font-family: 'Shippori Mincho', serif;
+    color: var(--gold);
+    font-weight: 600;
+    font-size: 15px;
+  }
+
+  .multi-input-grid {
+    display: grid;
+    gap: 12px;
+    margin: 20px 0;
+  }
+
+  .multi-input-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .multi-input-num {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 22px;
+    color: var(--accent);
+    font-weight: 700;
+    width: 30px;
+    text-align: center;
+  }
+
+  .vegetables-wrap { margin: 20px 0; }
+
+  .veg-timer-idle {
+    margin: 28px auto;
+    padding: 32px 24px;
+    background: rgba(42,37,32,0.02);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    max-width: 360px;
+  }
+
+  .veg-timer-icon {
+    font-size: 48px;
+    color: var(--accent);
+    opacity: 0.4;
+    margin-bottom: 12px;
+    letter-spacing: 0.1em;
+  }
+
+  .veg-timer-text {
+    color: var(--ink-soft);
+    font-family: 'Shippori Mincho', serif;
+    font-size: 14px;
+    letter-spacing: 0.15em;
+  }
+
+  .veg-timer-display {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .veg-timer-ring {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+  }
+
+  .veg-timer-svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+  }
+
+  .veg-timer-bg {
+    fill: none;
+    stroke: rgba(42,37,32,0.08);
+    stroke-width: 6;
+  }
+
+  .veg-timer-progress {
+    fill: none;
+    stroke: var(--sage);
+    stroke-width: 6;
+    stroke-linecap: round;
+    stroke-dasharray: 282.7;
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1s linear, stroke 0.3s ease;
+  }
+
+  .veg-timer-progress.warning {
+    stroke: var(--gold);
+  }
+
+  .veg-timer-progress.danger {
+    stroke: var(--accent);
+  }
+
+  .veg-timer-num {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 40px;
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  .veg-timer-num.danger {
+    color: var(--accent);
+    animation: timerPulse 0.5s ease-in-out infinite;
+  }
+
+  @keyframes timerPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+
+  .veg-timer-label {
+    font-size: 11px;
+    color: var(--ink-soft);
+    letter-spacing: 0.3em;
+    margin-top: 8px;
+  }
+
+  .vegetables-count {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 48px;
+    color: var(--accent);
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 8px;
+    transition: transform 0.3s;
+  }
+
+  .vegetables-count.bump { animation: countBump 0.3s ease; }
+
+  @keyframes countBump {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+  }
+
+  .vegetables-count-label {
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    margin-bottom: 24px;
+  }
+
+  .vegetable-input-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .vegetable-input {
+    flex: 1;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 17px;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-bottom: 2px solid var(--ink-soft);
+    border-radius: 2px 2px 0 0;
+    background: var(--bg-card);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .vegetable-input:focus { border-bottom-color: var(--sage); }
+
+  .add-veg-btn {
+    padding: 14px 24px;
+    background: var(--sage);
+    color: white;
+    border: none;
+    border-radius: 2px;
+    font-family: 'Shippori Mincho', serif;
+    cursor: pointer;
+    font-size: 15px;
+    transition: all 0.2s;
+    letter-spacing: 0.1em;
+  }
+
+  .add-veg-btn:hover { background: #557555; }
+
+  .vegetable-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+    min-height: 40px;
+  }
+
+  .veg-chip {
+    padding: 8px 14px;
+    background: rgba(107,142,107,0.15);
+    color: var(--sage);
+    border: 1px solid var(--sage);
+    border-radius: 100px;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    animation: chipIn 0.3s ease;
+  }
+
+  @keyframes chipIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .veg-chip .remove {
+    cursor: pointer;
+    color: var(--accent);
+    font-weight: bold;
+    border: none;
+    background: none;
+    padding: 0;
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .btn-small {
+    font-family: 'Shippori Mincho', serif;
+    padding: 12px 28px;
+    font-size: 14px;
+    letter-spacing: 0.15em;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.25s;
+    border: none;
+  }
+
+  .btn-prev {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--ink-soft);
+  }
+
+  .btn-prev:hover {
+    color: var(--ink);
+    border-color: var(--ink);
+  }
+
+  .btn-next {
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  .btn-next:hover { background: var(--accent); }
+
+  .completion-message {
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  .completion-kanji {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 64px;
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    margin-bottom: 24px;
+  }
+
+  .completion-text {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 18px;
+    color: var(--ink);
+    line-height: 2;
+    margin-bottom: 12px;
+  }
+
+  .completion-sub {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.9;
+    margin-top: 16px;
+  }
+
+  .thanks-box {
+    margin: 32px auto;
+    max-width: 460px;
+    padding: 24px;
+    background: rgba(107,142,107,0.08);
+    border-top: 1px solid var(--sage);
+    border-bottom: 1px solid var(--sage);
+    text-align: center;
+  }
+
+  .thanks-box-label {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--sage);
+    margin-bottom: 8px;
+  }
+
+  .thanks-box-text {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 16px;
+    color: var(--ink);
+  }
+
+  .result-notice {
+    max-width: 520px;
+    margin: 24px auto;
+    padding: 20px;
+    background: rgba(139,58,47,0.04);
+    border-left: 3px solid var(--accent);
+    font-size: 13px;
+    line-height: 1.9;
+    color: var(--ink-soft);
+    text-align: left;
+  }
+
+  .result-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+
+  /* ─── ANSWERS REVIEW ─── */
+  .answers-review {
+    margin: 32px 0;
+    padding: 28px;
+    background: rgba(42,37,32,0.02);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    animation: fadeIn 0.4s ease-out;
+  }
+
+  .answers-review-title {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 18px;
+    color: var(--ink);
+    text-align: center;
+    letter-spacing: 0.15em;
+    margin-bottom: 8px;
+  }
+
+  .answers-review-subtitle {
+    font-size: 11px;
+    color: var(--ink-soft);
+    text-align: center;
+    letter-spacing: 0.3em;
+    margin-bottom: 24px;
+  }
+
+  .answer-item {
+    padding: 16px 0;
+    border-bottom: 1px dashed var(--border);
+  }
+
+  .answer-item:last-child { border-bottom: none; }
+
+  .answer-question {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  .answer-q-num {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    flex-shrink: 0;
+    letter-spacing: 0.1em;
+  }
+
+  .answer-q-num-info {
+    color: var(--gold) !important;
+    font-family: 'Shippori Mincho', serif !important;
+    font-size: 11px !important;
+    background: rgba(184,148,84,0.1);
+    padding: 3px 10px;
+    border-radius: 100px;
+    border: 1px solid rgba(184,148,84,0.3);
+  }
+
+  .answer-item-info {
+    background: rgba(184,148,84,0.04);
+    margin: 0 -16px;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    border-radius: 2px;
+  }
+
+  .answer-score-badge {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 14px;
+    color: var(--accent);
+    font-weight: 700;
+    background: rgba(139,58,47,0.08);
+    padding: 4px 12px;
+    border-radius: 100px;
+    border: 1px solid rgba(139,58,47,0.2);
+    flex-shrink: 0;
+    margin-left: auto;
+    letter-spacing: 0.05em;
+  }
+
+  .score-summary {
+    margin: 8px 0 28px;
+    padding: 24px 20px;
+    text-align: center;
+    background: linear-gradient(180deg, rgba(139,58,47,0.06) 0%, rgba(139,58,47,0.02) 100%);
+    border-top: 2px solid var(--accent);
+    border-bottom: 2px solid var(--accent);
+  }
+
+  .score-summary-label {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+  }
+
+  .score-summary-value {
+    font-family: 'Zen Old Mincho', serif;
+    line-height: 1;
+  }
+
+  .score-summary-num {
+    font-size: 56px;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .score-summary-max {
+    font-size: 22px;
+    color: var(--ink-soft);
+    margin-left: 4px;
+  }
+
+  .score-summary-note {
+    font-size: 11px;
+    color: var(--ink-soft);
+    margin-top: 8px;
+    letter-spacing: 0.05em;
+  }
+
+  .score-ok {
+    color: var(--sage);
+    font-weight: 700;
+    margin-left: 4px;
+    font-size: 16px;
+  }
+
+  .score-ng {
+    color: var(--accent);
+    font-weight: 700;
+    margin-left: 4px;
+    font-size: 16px;
+  }
+
+  .answer-value strong {
+    color: var(--ink);
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 19px;
+  }
+
+  .chip-ok {
+    background: rgba(107,142,107,0.18) !important;
+    border-color: var(--sage) !important;
+    color: var(--sage) !important;
+  }
+
+  .chip-ng {
+    background: rgba(139,58,47,0.1) !important;
+    border-color: rgba(139,58,47,0.4) !important;
+    color: var(--accent) !important;
+    text-decoration: line-through;
+    text-decoration-color: rgba(139,58,47,0.5);
+  }
+
+  .chip-mark {
+    margin-left: 4px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .chip-ng .chip-mark { text-decoration: none; }
+
+  .answer-value {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 17px;
+    color: var(--ink);
+    padding-left: 32px;
+    line-height: 1.8;
+    word-break: break-word;
+  }
+
+  .answer-value.empty {
+    color: var(--ink-soft);
+    font-style: italic;
+    opacity: 0.6;
+  }
+
+  .answer-value-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding-left: 32px;
+    margin-top: 4px;
+  }
+
+  .answer-value-chip {
+    padding: 4px 12px;
+    background: rgba(107,142,107,0.1);
+    border: 1px solid rgba(107,142,107,0.3);
+    border-radius: 100px;
+    font-size: 13px;
+    color: var(--sage);
+    font-family: 'Shippori Mincho', serif;
+  }
+
+  .footer-note {
+    text-align: center;
+    font-size: 11px;
+    color: var(--ink-soft);
+    margin-top: 40px;
+    padding: 20px;
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+  }
+
+  .fade-in { animation: fadeIn 0.5s ease-out; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hidden { display: none !important; }
+
+  @media (max-width: 600px) {
+    .screen { padding: 28px 20px; }
+    .screen::before { top: 8px; left: 8px; right: 8px; bottom: 8px; }
+    .word-card { font-size: 26px; padding: 18px 22px; }
+    .flash-digit { font-size: 100px; }
+    .flash-object-svg { width: 90px; height: 90px; }
+    .flash-object-name { font-size: 26px; }
+    .flash-countdown { font-size: 48px; }
+    .calc-row { font-size: 24px; }
+    .calc-input { font-size: 32px; width: 140px; }
+    .completion-kanji { font-size: 48px; }
+    .question-text { font-size: 17px; padding: 18px 20px; }
+    .select-input { font-size: 18px; min-width: 90px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="subtitle-en">Cognitive Assessment Test</div>
+    <h1 class="title-main">改訂 長谷川式簡易知能評価スケール</h1>
+    <div class="title-sub">HDS-R</div>
+    <div class="ornament">
+      <span class="ornament-line"></span>
+      <span class="ornament-diamond"></span>
+      <span class="ornament-line"></span>
+    </div>
+  </header>
+
+  <div id="screen-start" class="screen fade-in">
+    <div class="start-content">
+      <div class="start-kanji">検査</div>
+      <p class="start-intro">
+        これから 9つの問題に<br>お答えいただきます
+      </p>
+      <div class="start-description">
+        ご自身のペースで、落ち着いて答えてください。<br>
+        わからない場合は、わからないままで構いません。<br>
+        所要時間はおよそ10分程度です。
+      </div>
+      <div class="disclaimer">
+        本アプリは医療行為の代替ではありません。気になる結果が出た場合は、医療機関にご相談ください。
+      </div>
+      <button class="btn btn-primary" onclick="startTest()">はじめる</button>
+    </div>
+  </div>
+
+  <div id="screen-question" class="screen hidden">
+    <div class="progress-bar" id="progressBar"></div>
+    <div class="question-header" id="questionHeader">
+      <div class="question-number" id="questionNumberWrap">
+        <span class="q-label" id="qLabel">QUESTION</span>
+        <span class="q-num" id="qNum">1</span>
+        <span class="q-num-total" id="qNumTotal">/ 8</span>
+      </div>
+    </div>
+    <div id="questionContent"></div>
+    <div class="nav-buttons">
+      <button class="btn-small btn-prev" id="prevBtn" onclick="prevQuestion()">← 前へ</button>
+      <button class="btn-small btn-next" id="nextBtn" onclick="nextQuestion()">次へ →</button>
+    </div>
+  </div>
+
+  <div id="screen-result" class="screen hidden">
+    <div class="completion-message">
+      <div class="completion-kanji">終了</div>
+      <div class="completion-text">
+        おつかれさまでした
+      </div>
+      <div class="completion-sub">
+        すべての問題が終わりました
+      </div>
+    </div>
+    <div class="thanks-box">
+      <div class="thanks-box-label">THANK YOU</div>
+      <div class="thanks-box-text">ご協力ありがとうございました</div>
+    </div>
+    <div class="result-notice">
+      検査結果については、医療機関・医療従事者にご確認ください。本アプリは認知機能のスクリーニングを目的としており、診断を行うものではありません。気になる点があれば、専門医への受診をお勧めします。
+    </div>
+    <div class="result-actions">
+      <button class="btn btn-secondary btn-small" onclick="toggleAnswersReview()" id="showAnswersBtn">回答を表示</button>
+      <button class="btn btn-secondary btn-small" onclick="restart()">もう一度</button>
+    </div>
+    <div id="answersReview" class="hidden"></div>
+  </div>
+
+  <div class="footer-note">
+    ※ 加藤伸司ら, 改訂 長谷川式簡易知能評価スケール（HDS-R）の作成. 老年精神医学雑誌 1991.
+  </div>
+</div>
+
+<script>
+let currentQuestion = 0;
+const answers = {};
+
+// Flash timers (so we can cancel if the user navigates away)
+let activeFlashTimer = null;
+function cancelFlashTimers() {
+  if (activeFlashTimer) {
+    clearTimeout(activeFlashTimer);
+    activeFlashTimer = null;
+  }
+  // Also cancel veg timer on navigation
+  if (typeof stopVegTimer === 'function') stopVegTimer();
+}
+
+// Each entry is one screen. `qNum` is the displayed question number (1..8).
+// `words_memorize` is an instruction screen (no qNum) — it shows 3 words to memorize but is not numbered as a question.
+// Some questions span multiple screens (e.g., Q4 calculation has two screens) but share the same qNum.
+const questions = [
+  { id: 'age', qNum: 1, title: 'お歳はいくつですか？', type: 'age' },
+  { id: 'datetime', qNum: 2, title: '今日は何年何月何日ですか？ 何曜日ですか？', type: 'datetime' },
+  { id: 'place', qNum: 3, title: '私たちが今いるところはどこですか？', type: 'place' },
+  { id: 'words_memorize', qNum: null, title: 'これから3つの言葉を言います。あとでまた聞きますので、よく覚えておいてください。', type: 'words_memorize' },
+  { id: 'calc_a', qNum: 4, title: '100から7を引いてください。', type: 'calc_a' },
+  { id: 'calc_b', qNum: 4, title: '先ほどの答えから、さらに7を引いてください。', type: 'calc_b' },
+  { id: 'rev_a', qNum: 5, title: 'これから表示される数字を、逆から言ってください。', type: 'rev_a' },
+  { id: 'rev_b', qNum: 5, title: 'これから表示される数字を、逆から言ってください。', type: 'rev_b' },
+  { id: 'words_recall', qNum: 6, title: '先ほど覚えていただいた3つの言葉を、もう一度言ってください。', type: 'words_recall' },
+  { id: 'objects', qNum: 7, title: 'これから5つの品物を順番にお見せします。終わったら、何があったか答えてください。', type: 'objects' },
+  { id: 'vegetables', qNum: 8, title: '知っている野菜の名前を、できるだけたくさん答えてください。', type: 'vegetables' }
+];
+const TOTAL_QUESTION_NUMBERS = 8;
+
+const wordSets = [
+  { words: ['桜', '猫', '電車'] },
+  { words: ['梅', '犬', '自動車'] }
+];
+
+// Object definitions for the 5-objects question
+const objectsData = [
+  { name: '時計', svg: '<svg class="flash-object-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>' },
+  { name: '鍵', svg: '<svg class="flash-object-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="8" cy="14" r="4"/><path d="M11 13l8-8m-3 3l2 2m-4-4l2 2"/></svg>' },
+  { name: 'タバコ', svg: '<svg class="flash-object-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="10" width="18" height="4" rx="1"/><path d="M17 10v4M19 10v4"/><path d="M15 6c0-2 2-2 2 0s2 2 2 4" stroke-linecap="round"/></svg>' },
+  { name: 'ペン', svg: '<svg class="flash-object-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M16 3l5 5-11 11-5 1 1-5z"/><path d="M14 5l5 5"/></svg>' },
+  { name: '硬貨', svg: '<svg class="flash-object-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="M12 10v4"/></svg>' }
+];
+
+// Digit sequences
+const digitSeqs = {
+  first: ['6', '8', '2'],
+  second: ['3', '5', '2', '9']
+};
+
+function updateProgressBar() {
+  const bar = document.getElementById('progressBar');
+  bar.innerHTML = '';
+  const currentQNum = questions[currentQuestion].qNum;
+  // Track which qNums have been completed (passed by current screen)
+  // A qNum is "done" only if all of its sub-screens have been passed.
+  for (let qn = 1; qn <= TOTAL_QUESTION_NUMBERS; qn++) {
+    const step = document.createElement('div');
+    step.className = 'progress-step';
+    // Find if all screens for this qn come before currentQuestion
+    const screensForQn = questions
+      .map((q, i) => ({ q, i }))
+      .filter(x => x.q.qNum === qn);
+    const allDone = screensForQn.every(x => x.i < currentQuestion);
+    const isCurrent = qn === currentQNum;
+    if (allDone) step.classList.add('done');
+    else if (isCurrent) step.classList.add('current');
+    bar.appendChild(step);
+  }
+}
+
+function numberOptions(start, end, selectedVal) {
+  let html = '<option value="" disabled' + (selectedVal === undefined || selectedVal === '' || selectedVal === null ? ' selected' : '') + '>選択</option>';
+  for (let i = start; i <= end; i++) {
+    const sel = (String(selectedVal) === String(i)) ? ' selected' : '';
+    html += `<option value="${i}"${sel}>${i}</option>`;
+  }
+  return html;
+}
+
+function escapeHtml(str) {
+  if (str === null || str === undefined) return '';
+  return String(str).replace(/[&<>"']/g, c => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[c]));
+}
+
+function startTest() {
+  if (!answers._wordSet) {
+    answers._wordSet = wordSets[Math.floor(Math.random() * wordSets.length)];
+  }
+  document.getElementById('screen-start').classList.add('hidden');
+  document.getElementById('screen-question').classList.remove('hidden');
+  document.getElementById('screen-question').classList.add('fade-in');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  cancelFlashTimers();
+  const q = questions[currentQuestion];
+
+  // Show question number, or "INFORMATION" for non-numbered instruction screens
+  const qLabelEl = document.getElementById('qLabel');
+  const qNumEl = document.getElementById('qNum');
+  const qNumTotalEl = document.getElementById('qNumTotal');
+  if (q.qNum === null || q.qNum === undefined) {
+    qLabelEl.textContent = 'INFORMATION';
+    qNumEl.textContent = 'お知らせ';
+    qNumEl.classList.add('q-num-info');
+    qNumTotalEl.style.display = 'none';
+  } else {
+    qLabelEl.textContent = 'QUESTION';
+    qNumEl.textContent = q.qNum;
+    qNumEl.classList.remove('q-num-info');
+    qNumTotalEl.style.display = '';
+    qNumTotalEl.textContent = '/ ' + TOTAL_QUESTION_NUMBERS;
+  }
+
+  updateProgressBar();
+
+  const content = document.getElementById('questionContent');
+  content.classList.remove('fade-in');
+  void content.offsetWidth;
+  content.classList.add('fade-in');
+
+  let html = `<div class="question-text">${q.title}</div>`;
+  html += `<div class="answer-area" id="answerArea"></div>`;
+  content.innerHTML = html;
+
+  renderAnswerArea(q);
+
+  document.getElementById('prevBtn').style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
+  document.getElementById('nextBtn').textContent = currentQuestion === questions.length - 1 ? '終了する' : '次へ →';
+}
+
+function renderAnswerArea(q) {
+  const area = document.getElementById('answerArea');
+
+  switch (q.type) {
+    case 'age': {
+      const saved = answers.age?.value ?? '';
+      area.innerHTML = `
+        <div class="single-select-wrap">
+          <div class="select-wrap">
+            <select class="select-input" onchange="saveAnswer('age', this.value)">
+              ${numberOptions(50, 120, saved)}
+            </select>
+          </div>
+          <span class="unit-label">歳</span>
+        </div>
+      `;
+      break;
+    }
+
+    case 'datetime': {
+      const now = new Date();
+      const currentYear = now.getFullYear();
+      const dt = answers.datetime || {};
+      area.innerHTML = `
+        <div class="date-row">
+          <div class="date-field">
+            <div class="select-wrap">
+              <select class="select-input" onchange="saveDateField('year', this.value)">
+                ${numberOptions(currentYear - 5, currentYear + 1, dt.year)}
+              </select>
+            </div>
+            <span class="unit-label">年</span>
+          </div>
+          <div class="date-field">
+            <div class="select-wrap">
+              <select class="select-input" onchange="saveDateField('month', this.value)">
+                ${numberOptions(1, 12, dt.month)}
+              </select>
+            </div>
+            <span class="unit-label">月</span>
+          </div>
+          <div class="date-field">
+            <div class="select-wrap">
+              <select class="select-input" onchange="saveDateField('day', this.value)">
+                ${numberOptions(1, 31, dt.day)}
+              </select>
+            </div>
+            <span class="unit-label">日</span>
+          </div>
+          <div class="date-field">
+            <div class="select-wrap">
+              <select class="select-input" onchange="saveDateField('dow', this.value)">
+                <option value="" disabled ${!dt.dow ? 'selected' : ''}>選択</option>
+                ${['日','月','火','水','木','金','土'].map(d =>
+                  `<option value="${d}" ${dt.dow === d ? 'selected' : ''}>${d}</option>`
+                ).join('')}
+              </select>
+            </div>
+            <span class="unit-label">曜日</span>
+          </div>
+        </div>
+      `;
+      break;
+    }
+
+    case 'place': {
+      const val = answers.place?.value ?? '';
+      area.innerHTML = `
+        <div style="padding: 32px 0; text-align: center;">
+          <input type="text" class="text-input" 
+                 style="max-width: 420px;"
+                 value="${escapeHtml(val)}"
+                 placeholder="今いる場所を入力してください"
+                 oninput="saveAnswer('place', this.value)">
+        </div>
+      `;
+      break;
+    }
+
+    case 'words_memorize': {
+      const set = answers._wordSet;
+      area.innerHTML = `
+        <div class="words-display">
+          ${set.words.map(w => `<div class="word-card">${w}</div>`).join('')}
+        </div>
+        <div class="memo-message">
+          この3つの言葉をよく覚えてください<br>
+          <span style="font-size: 13px; font-weight: normal; color: var(--ink-soft);">※ あとの問題で再びお聞きします</span>
+        </div>
+        <div style="text-align: center; margin-top: 24px; color: var(--ink-soft); font-size: 13px;">
+          覚えたら「次へ」を押してください
+        </div>
+      `;
+      if (!answers.words_memorize) answers.words_memorize = { viewed: true };
+      break;
+    }
+
+    case 'calc_a': {
+      const calc = answers.calculation || {};
+      area.innerHTML = `
+        <div class="calc-display">
+          <div class="calc-stage">
+            <input type="number" class="calc-input" id="calc1" value="${calc.first ?? ''}" 
+                   oninput="saveCalcField('first', this.value)" 
+                   placeholder="答えを入力" autofocus>
+          </div>
+        </div>
+      `;
+      // Auto-focus the input
+      setTimeout(() => {
+        const inp = document.getElementById('calc1');
+        if (inp) inp.focus();
+      }, 100);
+      break;
+    }
+
+    case 'calc_b': {
+      const calc = answers.calculation || {};
+      area.innerHTML = `
+        <div class="calc-display">
+          <div class="calc-stage">
+            <input type="number" class="calc-input" id="calc2" value="${calc.second ?? ''}" 
+                   oninput="saveCalcField('second', this.value)" 
+                   placeholder="答えを入力" autofocus>
+          </div>
+        </div>
+      `;
+      setTimeout(() => {
+        const inp = document.getElementById('calc2');
+        if (inp) inp.focus();
+      }, 100);
+      break;
+    }
+
+    case 'rev_a': {
+      const rev = answers.reverse_digits || {};
+      area.innerHTML = `
+        <div>
+          <div style="color: var(--ink-soft); font-size: 14px; margin-bottom: 16px; text-align: center;">
+            「スタート」を押すと、数字が1つずつ表示されます。<br>
+            逆の順番で読み上げて、下に入力してください。
+          </div>
+          <div class="flash-stage" id="flashStage1">
+            <div class="flash-idle">
+              <div class="flash-idle-icon">・・・</div>
+              <div>ボタンを押すと開始します</div>
+            </div>
+          </div>
+          <div class="flash-controls">
+            <button class="flash-start-btn" id="startFlash1" onclick="startDigitFlash('first', 1)" ${rev.firstShown ? 'disabled' : ''}>
+              ${rev.firstShown ? '✓ 再生済み' : '▶ スタート'}
+            </button>
+            ${rev.firstShown ? '<div class="flash-replay-note">※ 再生は1度だけです</div>' : ''}
+          </div>
+          <div style="text-align: center; margin-top: 20px;">
+            <input type="text" class="digits-input" id="rev1" 
+                   value="${escapeHtml(rev.first ?? '')}" 
+                   oninput="saveReverseField('first', this.value)" 
+                   placeholder="${rev.firstShown ? '答えを入力' : '（再生後に入力）'}"
+                   ${rev.firstShown ? '' : 'disabled'}>
+          </div>
+        </div>
+      `;
+      break;
+    }
+
+    case 'rev_b': {
+      const rev = answers.reverse_digits || {};
+      area.innerHTML = `
+        <div>
+          <div style="color: var(--ink-soft); font-size: 14px; margin-bottom: 16px; text-align: center;">
+            「スタート」を押すと、数字が1つずつ表示されます。<br>
+            逆の順番で読み上げて、下に入力してください。
+          </div>
+          <div class="flash-stage" id="flashStage2">
+            <div class="flash-idle">
+              <div class="flash-idle-icon">・・・・</div>
+              <div>ボタンを押すと開始します</div>
+            </div>
+          </div>
+          <div class="flash-controls">
+            <button class="flash-start-btn" id="startFlash2" onclick="startDigitFlash('second', 2)" ${rev.secondShown ? 'disabled' : ''}>
+              ${rev.secondShown ? '✓ 再生済み' : '▶ スタート'}
+            </button>
+            ${rev.secondShown ? '<div class="flash-replay-note">※ 再生は1度だけです</div>' : ''}
+          </div>
+          <div style="text-align: center; margin-top: 20px;">
+            <input type="text" class="digits-input" id="rev2" 
+                   value="${escapeHtml(rev.second ?? '')}" 
+                   oninput="saveReverseField('second', this.value)" 
+                   placeholder="${rev.secondShown ? '答えを入力' : '（再生後に入力）'}"
+                   ${rev.secondShown ? '' : 'disabled'}>
+          </div>
+        </div>
+      `;
+      break;
+    }
+
+    case 'words_recall': {
+      const recall = answers.words_recall?.words || ['', '', ''];
+      area.innerHTML = `
+        <div style="text-align: center; margin-bottom: 20px; color: var(--ink-soft); font-size: 14px;">
+          覚えている言葉を入力してください
+        </div>
+        <div class="multi-input-grid">
+          ${[0,1,2].map(i => `
+            <div class="multi-input-row">
+              <div class="multi-input-num">${i+1}</div>
+              <input type="text" class="text-input" 
+                     value="${escapeHtml(recall[i] ?? '')}" 
+                     oninput="saveRecallWord(${i}, this.value)" 
+                     placeholder="${i === 0 ? '1つめの言葉' : i === 1 ? '2つめの言葉' : '3つめの言葉'}">
+            </div>
+          `).join('')}
+        </div>
+      `;
+      break;
+    }
+
+    case 'objects': {
+      const state = answers.objects || {};
+      const shown = state.shown;
+      const recalled = state.recalled || ['','','','',''];
+
+      area.innerHTML = `
+        <div>
+          <div style="color: var(--ink-soft); font-size: 14px; margin-bottom: 12px; text-align: center;">
+            「スタート」を押すと、5つの品物が10秒間表示されます。<br>
+            よく覚えてから、思い出したものを下に入力してください。
+          </div>
+          <div class="flash-stage" id="flashStageObj">
+            <div class="flash-idle">
+              <div class="flash-idle-icon">⌁</div>
+              <div>ボタンを押すと開始します</div>
+            </div>
+          </div>
+          <div class="flash-controls">
+            <button class="flash-start-btn" id="startFlashObj" onclick="startObjectFlash()" ${shown ? 'disabled' : ''}>
+              ${shown ? '✓ 再生済み' : '▶ スタート'}
+            </button>
+            ${shown ? '<div class="flash-replay-note">※ 再生は1度だけです</div>' : ''}
+          </div>
+          <div style="margin-top: 28px;">
+            <div style="text-align: center; margin-bottom: 16px; color: var(--ink-soft); font-size: 14px;">
+              ${shown ? '何があったか、思い出して入力してください' : '再生後に入力欄が有効になります'}
+            </div>
+            <div class="multi-input-grid">
+              ${[0,1,2,3,4].map(i => `
+                <div class="multi-input-row">
+                  <div class="multi-input-num">${i+1}</div>
+                  <input type="text" class="text-input" 
+                         value="${escapeHtml(recalled[i] ?? '')}" 
+                         oninput="saveObjectRecall(${i}, this.value)" 
+                         placeholder="品物の名前"
+                         ${shown ? '' : 'disabled style="opacity:0.4;"'}>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+      break;
+    }
+
+    case 'vegetables': {
+      const state = answers.vegetables || {};
+      const vegs = state.list || [];
+      const phase = state.phase || 'idle'; // 'idle' | 'active' | 'done'
+
+      if (phase === 'idle') {
+        area.innerHTML = `
+          <div class="vegetables-wrap">
+            <div style="text-align: center; padding: 20px 0;">
+              <div style="color: var(--ink-soft); font-size: 14px; margin-bottom: 24px; line-height: 1.9;">
+                「スタート」を押すと回答時間が始まります。<br>
+                15秒間入力がない場合、終了となります。
+              </div>
+              <div class="veg-timer-idle">
+                <div class="veg-timer-icon">⏱</div>
+                <div class="veg-timer-text">準備ができたら開始してください</div>
+              </div>
+              <button class="flash-start-btn" onclick="startVegetableSession()" style="margin-top: 24px;">
+                ▶ スタート
+              </button>
+            </div>
+          </div>
+        `;
+      } else if (phase === 'active') {
+        area.innerHTML = `
+          <div class="vegetables-wrap">
+            <div class="veg-timer-display" id="vegTimerDisplay">
+              <div class="veg-timer-ring">
+                <svg viewBox="0 0 100 100" class="veg-timer-svg">
+                  <circle cx="50" cy="50" r="45" class="veg-timer-bg"/>
+                  <circle cx="50" cy="50" r="45" class="veg-timer-progress" id="vegTimerProgress"/>
+                </svg>
+                <div class="veg-timer-num" id="vegTimerNum">15</div>
+              </div>
+              <div class="veg-timer-label">残り秒数</div>
+            </div>
+            <div class="vegetables-count" id="vegCount">${vegs.length}</div>
+            <div class="vegetables-count-label">入力した数</div>
+            <div class="vegetable-input-row">
+              <input type="text" class="vegetable-input" id="vegInput" 
+                     placeholder="野菜の名前を入力..." autocomplete="off"
+                     onkeypress="if(event.key==='Enter'){event.preventDefault();addVegetable();}">
+              <button class="add-veg-btn" onclick="addVegetable()">追加</button>
+            </div>
+            <div style="text-align: center; margin-top: 20px; color: var(--ink-soft); font-size: 13px;">
+              「追加」または Enter キーで入力できます<br>
+              <span style="color: var(--accent);">※ 入力した野菜は確定後、表示されません</span>
+            </div>
+          </div>
+        `;
+        // Start countdown after render
+        setTimeout(() => {
+          startVegTimer();
+          const inp = document.getElementById('vegInput');
+          if (inp) inp.focus();
+        }, 50);
+      } else {
+        // done
+        area.innerHTML = `
+          <div class="vegetables-wrap">
+            <div style="text-align: center; padding: 24px 0;">
+              <div class="flash-done-icon" style="color: var(--sage); font-size: 56px; font-family: 'Zen Old Mincho', serif; font-weight: 700; letter-spacing: 0.15em;">終</div>
+              <div style="font-family: 'Shippori Mincho', serif; font-size: 16px; color: var(--ink); margin-top: 12px;">
+                回答時間が終了しました
+              </div>
+              <div class="vegetables-count" style="margin-top: 32px;">${vegs.length}</div>
+              <div class="vegetables-count-label">入力した数</div>
+            </div>
+          </div>
+        `;
+      }
+      break;
+    }
+  }
+}
+
+// ─── FLASH DISPLAYS ───
+function startDigitFlash(seqKey, stageNum) {
+  cancelFlashTimers();
+  const sequence = digitSeqs[seqKey];
+  const stage = document.getElementById('flashStage' + stageNum);
+  const btn = document.getElementById('startFlash' + stageNum);
+  const input = document.getElementById('rev' + stageNum);
+
+  btn.disabled = true;
+  if (input) {
+    input.disabled = true;
+    input.placeholder = '再生中...';
+  }
+
+  // Brief "starting" cue (no number countdown, just a soft visual cue)
+  stage.innerHTML = `<div class="flash-starting">よく見ていてください</div>`;
+
+  activeFlashTimer = setTimeout(() => {
+    showDigitsSequentially(sequence, stage, 0, () => {
+      // Done callback
+      stage.innerHTML = `
+        <div class="flash-done">
+          <div class="flash-done-icon">終</div>
+          <div class="flash-done-text">回答を入力してください</div>
+        </div>
+      `;
+      // Lock the button — playback is single-use
+      btn.disabled = true;
+      btn.textContent = '✓ 再生済み';
+
+      // Enable input
+      if (!answers.reverse_digits) answers.reverse_digits = {};
+      if (seqKey === 'first') answers.reverse_digits.firstShown = true;
+      else answers.reverse_digits.secondShown = true;
+
+      const inputEl = document.getElementById('rev' + stageNum);
+      if (inputEl) {
+        inputEl.disabled = false;
+        inputEl.placeholder = '答えを入力';
+        inputEl.focus();
+      }
+
+      // Add note if not present
+      const controls = btn.parentElement;
+      if (!controls.querySelector('.flash-replay-note')) {
+        const note = document.createElement('div');
+        note.className = 'flash-replay-note';
+        note.textContent = '※ 再生は1度だけです';
+        controls.appendChild(note);
+      }
+    });
+  }, 1000);
+}
+
+function showDigitsSequentially(sequence, stage, index, onDone) {
+  if (index >= sequence.length) {
+    // Brief blank before "done"
+    stage.innerHTML = '';
+    activeFlashTimer = setTimeout(onDone, 400);
+    return;
+  }
+  stage.innerHTML = `
+    <div class="flash-counter">${index + 1} / ${sequence.length}</div>
+    <div class="flash-digit">${sequence[index]}</div>
+  `;
+  activeFlashTimer = setTimeout(() => {
+    // Brief blank gap between digits
+    stage.innerHTML = `<div class="flash-counter">${index + 1} / ${sequence.length}</div>`;
+    activeFlashTimer = setTimeout(() => {
+      showDigitsSequentially(sequence, stage, index + 1, onDone);
+    }, 300);
+  }, 2000);
+}
+
+function startObjectFlash() {
+  cancelFlashTimers();
+  const stage = document.getElementById('flashStageObj');
+  const btn = document.getElementById('startFlashObj');
+
+  btn.disabled = true;
+
+  // Disable inputs during playback
+  document.querySelectorAll('#answerArea .text-input').forEach(i => {
+    i.disabled = true;
+    i.style.opacity = '0.4';
+  });
+
+  // Brief "starting" cue (no number countdown)
+  stage.innerHTML = `<div class="flash-starting">よく見ていてください</div>`;
+
+  activeFlashTimer = setTimeout(() => {
+    showAllObjects(stage, btn);
+  }, 1000);
+}
+
+const OBJECT_DISPLAY_SECONDS = 10;
+const OBJECT_RING_CIRCUMFERENCE = 251.3; // 2 * Math.PI * 40
+
+function showAllObjects(stage, btn) {
+  // Build the stage ONCE — items will not re-render. Only timer values update.
+  stage.innerHTML = `
+    <div class="objects-flash-wrap">
+      <div class="obj-timer-corner">
+        <svg viewBox="0 0 90 90" class="obj-timer-svg">
+          <circle cx="45" cy="45" r="40" class="obj-ring-bg"/>
+          <circle cx="45" cy="45" r="40" class="obj-ring-progress" id="objRingProgress" style="stroke-dashoffset: 0;"/>
+        </svg>
+        <div class="obj-ring-num" id="objRingNum">${OBJECT_DISPLAY_SECONDS}</div>
+      </div>
+      <div class="objects-flash-grid">
+        ${objectsData.map(o => `
+          <div class="objects-flash-item">
+            ${o.svg}
+            <div class="objects-flash-name">${o.name}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+
+  let secondsLeft = OBJECT_DISPLAY_SECONDS;
+
+  const updateTimer = () => {
+    const numEl = document.getElementById('objRingNum');
+    const ringEl = document.getElementById('objRingProgress');
+    if (!numEl || !ringEl) return;
+    numEl.textContent = Math.max(0, secondsLeft);
+    const offset = OBJECT_RING_CIRCUMFERENCE * (1 - secondsLeft / OBJECT_DISPLAY_SECONDS);
+    ringEl.style.strokeDashoffset = offset;
+
+    ringEl.classList.remove('warning', 'danger');
+    numEl.classList.remove('danger');
+    if (secondsLeft <= 3) {
+      ringEl.classList.add('danger');
+      numEl.classList.add('danger');
+    } else if (secondsLeft <= 6) {
+      ringEl.classList.add('warning');
+    }
+  };
+
+  const tick = () => {
+    secondsLeft--;
+    if (secondsLeft <= 0) {
+      // End of display
+      stage.innerHTML = `
+        <div class="flash-done">
+          <div class="flash-done-icon">終</div>
+          <div class="flash-done-text">覚えた品物を入力してください</div>
+        </div>
+      `;
+      // Lock the button — playback is single-use
+      btn.disabled = true;
+      btn.textContent = '✓ 再生済み';
+
+      if (!answers.objects) answers.objects = { recalled: ['','','','',''] };
+      answers.objects.shown = true;
+
+      // Re-enable inputs
+      document.querySelectorAll('#answerArea .text-input').forEach(i => {
+        i.disabled = false;
+        i.style.opacity = '';
+      });
+
+      // Focus first input
+      const firstInput = document.querySelector('#answerArea .text-input');
+      if (firstInput) firstInput.focus();
+
+      // Update note text above inputs
+      const noteEl = document.querySelector('#answerArea [style*="margin-bottom: 16px"]');
+      if (noteEl) noteEl.textContent = '何があったか、思い出して入力してください';
+
+      // Add note
+      const controls = btn.parentElement;
+      if (!controls.querySelector('.flash-replay-note')) {
+        const note = document.createElement('div');
+        note.className = 'flash-replay-note';
+        note.textContent = '※ 再生は1度だけです';
+        controls.appendChild(note);
+      }
+      return;
+    }
+    updateTimer();
+    activeFlashTimer = setTimeout(tick, 1000);
+  };
+
+  activeFlashTimer = setTimeout(tick, 1000);
+}
+
+// ─── SAVE HANDLERS ───
+function saveAnswer(key, value) {
+  if (!answers[key]) answers[key] = {};
+  answers[key].value = value;
+}
+
+function saveDateField(field, value) {
+  if (!answers.datetime) answers.datetime = {};
+  answers.datetime[field] = field === 'dow' ? value : parseInt(value);
+}
+
+function saveCalcField(field, value) {
+  if (!answers.calculation) answers.calculation = {};
+  answers.calculation[field] = value === '' ? undefined : parseInt(value);
+}
+
+function saveReverseField(field, value) {
+  if (!answers.reverse_digits) answers.reverse_digits = {};
+  answers.reverse_digits[field] = value;
+}
+
+function saveRecallWord(index, value) {
+  if (!answers.words_recall) answers.words_recall = { words: ['','',''] };
+  answers.words_recall.words[index] = value;
+}
+
+function saveObjectRecall(index, value) {
+  if (!answers.objects) answers.objects = { shown: false, recalled: ['','','','',''] };
+  if (!answers.objects.recalled) answers.objects.recalled = ['','','','',''];
+  answers.objects.recalled[index] = value;
+}
+
+function startVegetableSession() {
+  if (!answers.vegetables) answers.vegetables = { list: [] };
+  answers.vegetables.phase = 'active';
+  answers.vegetables.list = answers.vegetables.list || [];
+  renderQuestion();
+}
+
+let vegTimerInterval = null;
+let vegTimerSeconds = 15;
+const VEG_TIMER_TOTAL = 15;
+const VEG_TIMER_CIRCUMFERENCE = 282.7; // 2 * Math.PI * 45
+
+function startVegTimer() {
+  stopVegTimer();
+  vegTimerSeconds = VEG_TIMER_TOTAL;
+  updateVegTimerDisplay();
+  vegTimerInterval = setInterval(() => {
+    vegTimerSeconds--;
+    updateVegTimerDisplay();
+    if (vegTimerSeconds <= 0) {
+      stopVegTimer();
+      finishVegetableSession();
+    }
+  }, 1000);
+}
+
+function stopVegTimer() {
+  if (vegTimerInterval) {
+    clearInterval(vegTimerInterval);
+    vegTimerInterval = null;
+  }
+}
+
+function resetVegTimer() {
+  // Reset timer to 10 (called when user adds a new vegetable)
+  vegTimerSeconds = VEG_TIMER_TOTAL;
+  updateVegTimerDisplay();
+}
+
+function updateVegTimerDisplay() {
+  const numEl = document.getElementById('vegTimerNum');
+  const progEl = document.getElementById('vegTimerProgress');
+  if (!numEl || !progEl) return;
+  numEl.textContent = Math.max(0, vegTimerSeconds);
+  const offset = VEG_TIMER_CIRCUMFERENCE * (1 - vegTimerSeconds / VEG_TIMER_TOTAL);
+  progEl.style.strokeDashoffset = offset;
+
+  // Color states (scaled for 15s total)
+  progEl.classList.remove('warning', 'danger');
+  numEl.classList.remove('danger');
+  if (vegTimerSeconds <= 4) {
+    progEl.classList.add('danger');
+    numEl.classList.add('danger');
+  } else if (vegTimerSeconds <= 9) {
+    progEl.classList.add('warning');
+  }
+}
+
+function finishVegetableSession() {
+  stopVegTimer();
+  if (!answers.vegetables) answers.vegetables = { list: [] };
+  answers.vegetables.phase = 'done';
+  renderQuestion();
+}
+
+function addVegetable() {
+  const input = document.getElementById('vegInput');
+  if (!input) return;
+  const value = input.value.trim();
+  if (!value) return;
+
+  if (!answers.vegetables) answers.vegetables = { list: [], phase: 'active' };
+  if (!answers.vegetables.list) answers.vegetables.list = [];
+
+  // Reject duplicates with a brief flash
+  if (answers.vegetables.list.includes(value)) {
+    input.style.borderBottomColor = 'var(--accent)';
+    input.value = '';
+    setTimeout(() => { input.style.borderBottomColor = ''; }, 1000);
+    // Don't reset timer for invalid input
+    return;
+  }
+
+  answers.vegetables.list.push(value);
+  input.value = '';
+
+  // Bump count animation
+  const countEl = document.getElementById('vegCount');
+  if (countEl) {
+    countEl.textContent = answers.vegetables.list.length;
+    countEl.classList.add('bump');
+    setTimeout(() => countEl.classList.remove('bump'), 300);
+  }
+
+  // Reset timer to 10s on successful entry
+  resetVegTimer();
+  input.focus();
+}
+
+function removeVegetable(index) {
+  if (answers.vegetables?.list) {
+    answers.vegetables.list.splice(index, 1);
+    renderQuestion();
+  }
+}
+
+// ─── NAVIGATION ───
+function nextQuestion() {
+  cancelFlashTimers();
+  if (currentQuestion < questions.length - 1) {
+    currentQuestion++;
+    renderQuestion();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    showResult();
+  }
+}
+
+function prevQuestion() {
+  cancelFlashTimers();
+  if (currentQuestion > 0) {
+    currentQuestion--;
+    renderQuestion();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function showResult() {
+  document.getElementById('screen-question').classList.add('hidden');
+  document.getElementById('screen-result').classList.remove('hidden');
+  document.getElementById('screen-result').classList.add('fade-in');
+  // Reset review state
+  document.getElementById('answersReview').classList.add('hidden');
+  document.getElementById('answersReview').innerHTML = '';
+  document.getElementById('showAnswersBtn').textContent = '回答を表示';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function restart() {
+  currentQuestion = 0;
+  for (const k in answers) delete answers[k];
+  document.getElementById('screen-result').classList.add('hidden');
+  document.getElementById('screen-start').classList.remove('hidden');
+  document.getElementById('screen-start').classList.add('fade-in');
+}
+
+// ─── ANSWERS REVIEW ───
+function toggleAnswersReview() {
+  const reviewEl = document.getElementById('answersReview');
+  const btn = document.getElementById('showAnswersBtn');
+  
+  if (reviewEl.classList.contains('hidden')) {
+    reviewEl.innerHTML = buildAnswersReview();
+    reviewEl.classList.remove('hidden');
+    btn.textContent = '回答を隠す';
+    // Smooth scroll to review
+    setTimeout(() => {
+      reviewEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  } else {
+    reviewEl.classList.add('hidden');
+    reviewEl.innerHTML = '';
+    btn.textContent = '回答を表示';
+  }
+}
+
+function buildAnswersReview() {
+  const items = [];
+
+  // Q1 - age (no scoring)
+  const ageVal = answers.age?.value;
+  items.push({
+    num: 'Q1',
+    q: 'お歳はいくつですか？',
+    value: ageVal ? `${ageVal} 歳` : null
+  });
+
+  // Q2 - datetime (no scoring)
+  const dt = answers.datetime || {};
+  const dtParts = [];
+  if (dt.year) dtParts.push(`${dt.year}年`);
+  if (dt.month) dtParts.push(`${dt.month}月`);
+  if (dt.day) dtParts.push(`${dt.day}日`);
+  if (dt.dow) dtParts.push(`${dt.dow}曜日`);
+  items.push({
+    num: 'Q2',
+    q: '今日は何年何月何日ですか？ 何曜日ですか？',
+    value: dtParts.length > 0 ? dtParts.join(' ') : null
+  });
+
+  // Q3 - place (no scoring)
+  items.push({
+    num: 'Q3',
+    q: '今いる場所',
+    value: answers.place?.value || null
+  });
+
+  // Memorized words — instruction screen only, not numbered as a question
+  const set = answers._wordSet;
+  items.push({
+    num: '参考',
+    q: '覚えていただいた3つの言葉',
+    value: set ? `（${set.words.join(' ・ ')}）` : null,
+    note: true,
+    isInfo: true
+  });
+
+  // ─── Q4: Calculation (max 2 points) ───
+  const calc = answers.calculation || {};
+  const calcParts = [];
+  let calcScore = 0;
+  const calcMax = 2;
+  if (calc.first !== undefined && calc.first !== null) {
+    const ok1 = calc.first === 93;
+    if (ok1) calcScore++;
+    calcParts.push(`100 − 7 → <strong>${calc.first}</strong> ${ok1 ? '<span class="score-ok">○</span>' : '<span class="score-ng">×</span>'}`);
+    // Second only counts if first was correct (HDS-R rule: stop if first wrong)
+    if (ok1 && calc.second !== undefined && calc.second !== null) {
+      const ok2 = calc.second === 86;
+      if (ok2) calcScore++;
+      calcParts.push(`その答え − 7 → <strong>${calc.second}</strong> ${ok2 ? '<span class="score-ok">○</span>' : '<span class="score-ng">×</span>'}`);
+    } else if (calc.second !== undefined && calc.second !== null) {
+      calcParts.push(`その答え − 7 → <strong>${calc.second}</strong> <span class="score-ng">×</span>`);
+    }
+  }
+  items.push({
+    num: 'Q4',
+    q: '計算',
+    valueHtml: calcParts.length > 0 ? calcParts.join('<br>') : null,
+    score: calcScore,
+    scoreMax: calcMax
+  });
+
+  // ─── Q5: Reverse digits (max 2 points) ───
+  // First sequence "682" → reverse "286"
+  // Second sequence "3529" → reverse "9253"
+  const rev = answers.reverse_digits || {};
+  const revParts = [];
+  let revScore = 0;
+  const revMax = 2;
+  const normalize = s => String(s ?? '').replace(/[^0-9]/g, '');
+  const first1 = normalize(rev.first);
+  if (rev.first !== undefined && rev.first !== '') {
+    const ok1 = first1 === '286';
+    if (ok1) revScore++;
+    revParts.push(`問1：<strong>${escapeHtml(rev.first)}</strong> ${ok1 ? '<span class="score-ok">○</span>' : '<span class="score-ng">×</span>'}`);
+    // 2nd only counts if 1st was correct (HDS-R rule)
+    if (ok1 && rev.second !== undefined && rev.second !== '') {
+      const second2 = normalize(rev.second);
+      const ok2 = second2 === '9253';
+      if (ok2) revScore++;
+      revParts.push(`問2：<strong>${escapeHtml(rev.second)}</strong> ${ok2 ? '<span class="score-ok">○</span>' : '<span class="score-ng">×</span>'}`);
+    } else if (rev.second !== undefined && rev.second !== '') {
+      revParts.push(`問2：<strong>${escapeHtml(rev.second)}</strong> <span class="score-ng">×</span>`);
+    }
+  }
+  items.push({
+    num: 'Q5',
+    q: '数字の逆唱',
+    valueHtml: revParts.length > 0 ? revParts.join('<br>') : null,
+    score: revScore,
+    scoreMax: revMax
+  });
+
+  // ─── Q6: Delayed recall of 3 words (max 6 points, 2 each) ───
+  // Self-recall scoring: 2pt per matched word. Hint-based recall (1pt) cannot be auto-detected.
+  const recallWords = (answers.words_recall?.words || []).map(w => (w || '').trim());
+  const memorizedWords = answers._wordSet?.words || [];
+  let recallScore = 0;
+  const recallMax = 6;
+  const recallChips = recallWords.filter(w => w).map(w => {
+    const ok = matchesAny(w, memorizedWords);
+    if (ok) recallScore += 2;
+    return { text: w, ok };
+  });
+  items.push({
+    num: 'Q6',
+    q: '3つの言葉の遅延再生',
+    chips: recallChips.length > 0 ? recallChips : null,
+    score: recallScore,
+    scoreMax: recallMax
+  });
+
+  // ─── Q7: 5 objects recall (max 5 points, 1 each) ───
+  const objNames = ['時計', '鍵', 'タバコ', 'ペン', '硬貨'];
+  // Synonyms / acceptable variations
+  const objSynonyms = {
+    '時計': ['時計', 'とけい', 'トケイ'],
+    '鍵': ['鍵', 'かぎ', 'カギ', 'キー'],
+    'タバコ': ['タバコ', 'たばこ', '煙草'],
+    'ペン': ['ペン', 'ぺん', '筆記具', 'ボールペン', '万年筆'],
+    '硬貨': ['硬貨', 'こうか', 'コイン', 'お金', 'おかね']
+  };
+  const objRecalled = (answers.objects?.recalled || []).map(w => (w || '').trim()).filter(w => w);
+  let objScore = 0;
+  const objMax = 5;
+  const matchedObjects = new Set();
+  const objChips = objRecalled.map(w => {
+    let matched = null;
+    for (const canonical of objNames) {
+      if (matchedObjects.has(canonical)) continue;
+      if ((objSynonyms[canonical] || [canonical]).some(s => normalizeText(s) === normalizeText(w))) {
+        matched = canonical;
+        break;
+      }
+    }
+    if (matched) {
+      matchedObjects.add(matched);
+      objScore++;
+      return { text: w, ok: true };
+    }
+    return { text: w, ok: false };
+  });
+  items.push({
+    num: 'Q7',
+    q: '5つの品物',
+    chips: objChips.length > 0 ? objChips : null,
+    score: objScore,
+    scoreMax: objMax
+  });
+
+  // ─── Q8: Vegetable fluency (max 5 points) ───
+  const vegs = answers.vegetables?.list || [];
+  let vegScore = 0;
+  const vegMax = 5;
+  if (vegs.length >= 10) vegScore = 5;
+  else if (vegs.length === 9) vegScore = 4;
+  else if (vegs.length === 8) vegScore = 3;
+  else if (vegs.length === 7) vegScore = 2;
+  else if (vegs.length === 6) vegScore = 1;
+  else vegScore = 0;
+  items.push({
+    num: 'Q8',
+    q: '知っている野菜の名前',
+    chips: vegs.length > 0 ? vegs.map(v => ({ text: v, ok: null })) : null,
+    score: vegScore,
+    scoreMax: vegMax,
+    suffix: `全 ${vegs.length} 個`
+  });
+
+  // ─── Compute total for scorable items (Q4–Q8) ───
+  // Note: The 3-words memorize screen is informational only and not auto-scored here.
+  const scorableItems = items.filter(it => it.score !== undefined);
+  const totalScore = scorableItems.reduce((sum, it) => sum + it.score, 0);
+  const totalMax = scorableItems.reduce((sum, it) => sum + it.scoreMax, 0);
+
+  let html = `
+    <div class="answers-review">
+      <div class="answers-review-subtitle">YOUR ANSWERS</div>
+      <div class="answers-review-title">あなたの回答</div>
+      <div class="score-summary">
+        <div class="score-summary-label">自動採点（Q4〜Q8）</div>
+        <div class="score-summary-value">
+          <span class="score-summary-num">${totalScore}</span>
+          <span class="score-summary-max">/ ${totalMax}</span>
+        </div>
+        <div class="score-summary-note">※ Q1〜Q3は自動採点の対象外です</div>
+      </div>
+  `;
+
+  items.forEach(item => {
+    html += `<div class="answer-item${item.isInfo ? ' answer-item-info' : ''}">`;
+    html += `<div class="answer-question">`;
+    html += `<span class="answer-q-num${item.isInfo ? ' answer-q-num-info' : ''}">${item.num}</span>`;
+    html += `<span style="flex:1;">${escapeHtml(item.q)}${item.suffix ? ' <span style="color:var(--ink-soft); font-size:12px;">（' + escapeHtml(item.suffix) + '）</span>' : ''}</span>`;
+    if (item.score !== undefined) {
+      html += `<span class="answer-score-badge">${item.score} <span style="opacity:0.5; font-size:11px;">/ ${item.scoreMax}</span></span>`;
+    }
+    html += `</div>`;
+
+    const isEmpty = (item.value === null || item.value === undefined) &&
+                    (!item.valueHtml) &&
+                    (!item.chips || item.chips.length === 0);
+
+    if (isEmpty) {
+      html += `<div class="answer-value empty">— 未回答 —</div>`;
+    } else if (item.chips) {
+      html += `<div class="answer-value-list">`;
+      item.chips.forEach(c => {
+        let cls = 'answer-value-chip';
+        if (c.ok === true) cls += ' chip-ok';
+        else if (c.ok === false) cls += ' chip-ng';
+        html += `<div class="${cls}">${escapeHtml(c.text)}${c.ok === true ? ' <span class="chip-mark">○</span>' : c.ok === false ? ' <span class="chip-mark">×</span>' : ''}</div>`;
+      });
+      html += `</div>`;
+    } else if (item.valueHtml) {
+      html += `<div class="answer-value">${item.valueHtml}</div>`;
+    } else {
+      html += `<div class="answer-value"${item.note ? ' style="color:var(--ink-soft); font-style:italic;"' : ''}>${escapeHtml(item.value)}</div>`;
+    }
+    html += `</div>`;
+  });
+
+  html += `</div>`;
+  return html;
+}
+
+// Word readings for matching (kanji ↔ hiragana/katakana)
+const wordReadings = {
+  '桜': ['桜', 'さくら', 'サクラ'],
+  '猫': ['猫', 'ねこ', 'ネコ'],
+  '電車': ['電車', 'でんしゃ', 'デンシャ'],
+  '梅': ['梅', 'うめ', 'ウメ'],
+  '犬': ['犬', 'いぬ', 'イヌ'],
+  '自動車': ['自動車', 'じどうしゃ', 'ジドウシャ', '車', 'くるま', 'クルマ']
+};
+
+// Helper: matches user answer to any of the canonical words (with normalization)
+function normalizeText(s) {
+  if (!s) return '';
+  // Convert hiragana to katakana for matching, lowercase, remove spaces
+  return String(s)
+    .trim()
+    .replace(/[\s　]/g, '')
+    .replace(/[\u3041-\u3096]/g, ch => String.fromCharCode(ch.charCodeAt(0) + 0x60));
+}
+
+function matchesAny(input, words) {
+  const norm = normalizeText(input);
+  // Direct match
+  if (words.some(w => normalizeText(w) === norm)) return true;
+  // Reading-based match: for each canonical word, check all readings
+  for (const w of words) {
+    const readings = wordReadings[w] || [w];
+    if (readings.some(r => normalizeText(r) === norm)) return true;
+  }
+  return false;
+}
+</script>
+</body>
+</html>
