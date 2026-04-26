@@ -452,6 +452,10 @@
     padding: 20px;
   }
 
+  @media (max-width: 600px) {
+    .flash-stage { padding: 16px 8px; }
+  }
+
   /* ─── 5 OBJECTS FLASH (all-at-once) ─── */
   .objects-flash-wrap {
     width: 100%;
@@ -460,17 +464,15 @@
   }
 
   .objects-flash-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 12px;
-  }
-
-  @media (max-width: 600px) {
-    .objects-flash-grid { gap: 6px; }
   }
 
   .objects-flash-item {
     aspect-ratio: 1;
+    flex: 0 0 calc((100% - 48px) / 5);
     background: var(--bg-card);
     border: 2px solid var(--accent);
     border-radius: 4px;
@@ -482,6 +484,18 @@
     padding: 8px;
     box-shadow: 0 4px 12px rgba(139,58,47,0.1);
     animation: objFlashItemIn 0.5s ease-out both;
+  }
+
+  /* On narrow screens (mobile): 3+2 layout */
+  @media (max-width: 600px) {
+    .objects-flash-grid {
+      gap: 8px;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+    .objects-flash-item {
+      flex: 0 0 calc((100% - 16px) / 3);
+    }
   }
 
   .objects-flash-item:nth-child(1) { animation-delay: 0.05s; }
@@ -506,6 +520,44 @@
     font-size: 13px;
     color: var(--ink);
     font-weight: 600;
+  }
+
+  @media (max-width: 600px) {
+    .objects-flash-name { font-size: 12px; }
+  }
+
+  /* ─── 3 WORDS FLASH (Q4 immediate memorize) ─── */
+  .words-flash-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding: 20px 0;
+    animation: flashIn 0.4s ease-out;
+  }
+
+  .words-flash-item {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 32px;
+    padding: 24px 32px;
+    background: var(--bg-card);
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(139,58,47,0.15);
+    animation: objFlashItemIn 0.5s ease-out both;
+  }
+
+  .words-flash-item:nth-child(1) { animation-delay: 0.05s; }
+  .words-flash-item:nth-child(2) { animation-delay: 0.20s; }
+  .words-flash-item:nth-child(3) { animation-delay: 0.35s; }
+
+  @media (max-width: 600px) {
+    .words-flash-item { font-size: 24px; padding: 18px 22px; }
+    .words-flash-grid { gap: 10px; }
   }
 
   /* Corner timer for object display */
@@ -560,8 +612,15 @@
   }
 
   @media (max-width: 600px) {
-    .obj-timer-corner { width: 44px; height: 44px; top: 6px; right: 6px; }
-    .obj-ring-num { font-size: 18px; }
+    .obj-timer-corner {
+      position: relative;
+      top: auto;
+      right: auto;
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 16px;
+    }
+    .obj-ring-num { font-size: 22px; }
     .objects-flash-name { font-size: 11px; }
   }
 
@@ -804,6 +863,67 @@
     margin: 20px 0;
   }
 
+  /* Hint buttons (Q7) */
+  .hint-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin: 16px 0 8px;
+    flex-wrap: wrap;
+  }
+
+  .hint-btn {
+    font-family: 'Shippori Mincho', serif;
+    padding: 10px 18px;
+    background: var(--bg-card);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.25s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 100px;
+    justify-content: center;
+    max-width: 100%;
+    text-align: left;
+  }
+
+  .hint-btn:hover {
+    background: rgba(184,148,84,0.1);
+    transform: translateY(-1px);
+  }
+
+  .hint-btn-used {
+    background: var(--gold);
+    color: white;
+    border-color: var(--gold);
+  }
+
+  .hint-btn-used:hover {
+    background: #a07f48;
+  }
+
+  .hint-btn-value {
+    font-family: 'Zen Old Mincho', serif;
+    font-weight: 700;
+    font-size: 14px;
+    padding-left: 8px;
+    border-left: 1px solid rgba(255,255,255,0.4);
+    margin-left: 4px;
+    line-height: 1.5;
+  }
+
+  .hint-note {
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 12px;
+    line-height: 1.8;
+    margin-bottom: 16px;
+  }
+
   .multi-input-row {
     display: flex;
     align-items: center;
@@ -931,6 +1051,13 @@
   @keyframes countBump {
     0%, 100% { transform: scale(1); }
     50% { transform: scale(1.15); }
+  }
+
+  .vegetables-count-divider {
+    font-size: 22px;
+    color: var(--ink-soft);
+    font-weight: 500;
+    letter-spacing: 0.05em;
   }
 
   .vegetables-count-label {
@@ -1336,6 +1463,714 @@
     opacity: 0.7;
   }
 
+  /* ─── HDS-R SCORING SHEET (modeled on the official paper layout) ─── */
+  :root {
+    --hdsr-green: #6b8e6b;
+    --hdsr-green-deep: #557555;
+    --hdsr-green-light: rgba(107,142,107,0.25);
+    --hdsr-green-bg: rgba(107,142,107,0.08);
+    --hdsr-green-pale: var(--bg-card);
+  }
+
+  .hdsr-sheet {
+    margin: 24px 0;
+    padding: 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-family: 'Noto Sans JP', sans-serif;
+    box-shadow: var(--paper-shadow);
+    position: relative;
+  }
+
+  .hdsr-sheet::before {
+    content: '';
+    position: absolute;
+    top: 8px; left: 8px; right: 8px; bottom: 8px;
+    border: 1px solid var(--border);
+    pointer-events: none;
+    border-radius: 2px;
+  }
+
+  .hdsr-sheet > * { position: relative; z-index: 1; }
+
+  .hdsr-sheet-header {
+    background: var(--hdsr-green);
+    color: white;
+    padding: 14px 20px;
+    border-radius: 2px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hdsr-revision-tag {
+    font-family: 'Zen Old Mincho', serif;
+    background: white;
+    color: var(--hdsr-green-deep);
+    padding: 4px 10px;
+    border-radius: 2px;
+    font-size: 14px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .hdsr-sheet-title {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  .hdsr-sheet-subtitle {
+    text-align: right;
+    color: var(--hdsr-green-deep);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    margin-bottom: 16px;
+    padding-right: 4px;
+  }
+
+  .hdsr-questions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .hdsr-q {
+    background: white;
+    border: 1px solid var(--hdsr-green-light);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .hdsr-q-noscore {
+    background: rgba(255,255,255,0.6);
+    opacity: 0.85;
+  }
+
+  .hdsr-q-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: var(--hdsr-green-bg);
+    border-bottom: 1px solid var(--hdsr-green-light);
+    flex-wrap: wrap;
+  }
+
+  .hdsr-q-num {
+    width: 26px;
+    height: 26px;
+    background: var(--hdsr-green);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Zen Old Mincho', serif;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .hdsr-q-title {
+    font-weight: 600;
+    color: var(--ink);
+    font-size: 14px;
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .hdsr-q-rule {
+    font-size: 11px;
+    color: var(--ink-soft);
+  }
+
+  /* Inline rule shown next to Q1/Q2 title */
+  .hdsr-q-rule-inline {
+    font-size: 11px;
+    color: var(--hdsr-green-deep);
+    background: var(--hdsr-green-bg);
+    padding: 2px 10px;
+    border-radius: 100px;
+    border: 1px solid var(--hdsr-green-light);
+    flex-shrink: 0;
+  }
+
+  /* Q3 layout: answer on left, scoring rule on right */
+  .hdsr-q3-row {
+    display: flex;
+    align-items: stretch;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .hdsr-q3-answer {
+    flex: 1;
+    min-width: 200px;
+    padding: 12px 16px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+  }
+
+  .hdsr-q3-rule {
+    flex: 0 0 auto;
+    font-size: 11.5px;
+    color: var(--hdsr-green-deep);
+    background: var(--hdsr-green-bg);
+    padding: 10px 14px;
+    border-radius: 2px;
+    border: 1px solid var(--hdsr-green-light);
+    line-height: 1.7;
+    align-self: center;
+  }
+
+  /* Score editor (pull-down) */
+  .hdsr-score-edit {
+    margin-top: 14px;
+    padding: 10px 14px;
+    background: rgba(184,148,84,0.06);
+    border: 1px dashed var(--gold);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .hdsr-score-edit-label {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 12px;
+    color: var(--gold);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+  }
+
+  .hdsr-score-select {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 14px;
+    padding: 6px 28px 6px 14px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--ink);
+    font-weight: 700;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%238b3a2f' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+  }
+
+  .hdsr-score-select:focus { outline: 1px solid var(--accent); }
+
+  .hdsr-score-edit-max {
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+
+  .hdsr-auto-label {
+    font-size: 11px;
+    color: var(--ink-soft);
+    margin-left: auto;
+  }
+
+  .hdsr-override-mark {
+    background: var(--accent);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 100px;
+    font-size: 10px;
+    font-family: 'Shippori Mincho', serif;
+    letter-spacing: 0.1em;
+  }
+
+  /* Hint badge in Q7 chips */
+  .hdsr-hint-badge {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 1px 8px;
+    background: var(--gold);
+    color: white;
+    border-radius: 100px;
+    font-size: 10px;
+    font-family: 'Shippori Mincho', serif;
+    letter-spacing: 0.05em;
+    vertical-align: middle;
+  }
+
+  .hdsr-q-rule-block {
+    padding: 8px 14px;
+    background: rgba(196,223,168,0.2);
+    border-bottom: 1px solid var(--hdsr-green-light);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .hdsr-q-rule-block .hdsr-q-rule {
+    font-size: 11.5px;
+    color: var(--hdsr-green-deep);
+    font-weight: 500;
+  }
+
+  .hdsr-q-rule-sub {
+    font-size: 11px;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  .hdsr-q-score {
+    background: var(--hdsr-green-deep);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-family: 'Zen Old Mincho', serif;
+    font-weight: 700;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+
+  .hdsr-q-score small {
+    font-size: 11px;
+    opacity: 0.7;
+    font-weight: 400;
+  }
+
+  .hdsr-q-body {
+    padding: 12px 14px;
+  }
+
+  .hdsr-q-note {
+    font-size: 11px;
+    color: var(--ink-soft);
+    font-style: italic;
+    margin-top: 6px;
+  }
+
+  .hdsr-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 0;
+    flex-wrap: wrap;
+    font-size: 13px;
+  }
+
+  .hdsr-row-chips { align-items: flex-start; }
+
+  .hdsr-label {
+    font-size: 12px;
+    color: var(--ink-soft);
+    min-width: 60px;
+    flex-shrink: 0;
+  }
+
+  .hdsr-expected {
+    font-size: 11px;
+    color: var(--ink-soft);
+    font-family: 'Zen Old Mincho', serif;
+  }
+
+  .hdsr-user-ans {
+    font-family: 'Zen Old Mincho', serif;
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 15px;
+  }
+
+  .hdsr-correct-mark { color: var(--hdsr-green-deep); }
+  .hdsr-wrong-mark { color: var(--accent); }
+
+  .hdsr-skip-note {
+    font-size: 11px;
+    color: var(--accent-light);
+    font-style: italic;
+  }
+
+  .hdsr-empty {
+    font-size: 12px;
+    color: var(--ink-soft);
+    font-style: italic;
+    opacity: 0.6;
+  }
+
+  .hdsr-mark { font-weight: 700; font-size: 15px; }
+  .hdsr-mark-ok { color: var(--hdsr-green-deep); }
+  .hdsr-mark-ng { color: var(--accent); }
+  .hdsr-mark-na { color: var(--ink-soft); opacity: 0.4; }
+
+  .hdsr-score-cell {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+
+  .hdsr-correct {
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+    padding: 6px 10px;
+    background: rgba(184,148,84,0.08);
+    border-left: 2px solid var(--gold);
+    border-radius: 2px;
+  }
+
+  .hdsr-correct-word {
+    display: inline-block;
+    margin: 0 4px;
+    padding: 1px 8px;
+    background: white;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    border-radius: 100px;
+    font-family: 'Zen Old Mincho', serif;
+    font-weight: 600;
+    font-size: 12px;
+  }
+
+  .hdsr-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    flex: 1;
+  }
+
+  .hdsr-chip {
+    padding: 4px 12px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 13px;
+  }
+
+  .hdsr-chip-ok {
+    background: var(--hdsr-green-bg);
+    border-color: var(--hdsr-green);
+    color: var(--hdsr-green-deep);
+    font-weight: 600;
+  }
+
+  .hdsr-chip-ng {
+    background: rgba(139,58,47,0.06);
+    border-color: rgba(139,58,47,0.3);
+    color: var(--accent);
+    text-decoration: line-through;
+    text-decoration-color: rgba(139,58,47,0.5);
+  }
+
+  .hdsr-chip-neutral {
+    background: white;
+    border-color: var(--hdsr-green-light);
+    color: var(--ink);
+  }
+
+  /* Total row */
+  .hdsr-total-row {
+    margin-top: 16px;
+    padding: 16px 20px;
+    background: var(--hdsr-green);
+    color: white;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .hdsr-total-label {
+    font-family: 'Zen Old Mincho', serif;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.1em;
+  }
+
+  .hdsr-total-num {
+    font-family: 'Zen Old Mincho', serif;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 1;
+  }
+
+  .hdsr-total-max {
+    font-size: 14px;
+    opacity: 0.7;
+    margin-left: 4px;
+  }
+
+  .hdsr-total-note {
+    font-size: 11px;
+    color: var(--ink-soft);
+    margin-top: 8px;
+    text-align: center;
+    line-height: 1.7;
+  }
+
+  /* Judgment */
+  .hdsr-judgment {
+    margin-top: 18px;
+    padding: 14px 18px;
+    background: white;
+    border: 2px solid var(--hdsr-green);
+    border-radius: 4px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .hdsr-judgment-tag {
+    background: var(--hdsr-green);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 3px;
+    font-family: 'Zen Old Mincho', serif;
+    font-weight: 700;
+    font-size: 13px;
+    flex-shrink: 0;
+    letter-spacing: 0.1em;
+  }
+
+  .hdsr-judgment-text {
+    font-size: 12.5px;
+    line-height: 1.9;
+    color: var(--ink);
+    flex: 1;
+  }
+
+  .hdsr-link-row {
+    margin-top: 16px;
+    text-align: center;
+  }
+
+  /* ─── USAGE GUIDE MODAL (PDF page 1 equivalent) ─── */
+  .usage-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 20px;
+    overflow-y: auto;
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  .usage-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(42,37,32,0.6);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+  }
+
+  .usage-modal-content {
+    position: relative;
+    max-width: 800px;
+    width: 100%;
+    background: var(--bg);
+    background-image: 
+      radial-gradient(circle at 20% 10%, rgba(139,58,47,0.04) 0%, transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(107,142,107,0.04) 0%, transparent 40%);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 28px 32px 32px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    margin: 20px 0;
+  }
+
+  .usage-modal-close {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    width: 36px;
+    height: 36px;
+    background: var(--bg-card);
+    border: 1px solid var(--ink-soft);
+    color: var(--ink);
+    font-size: 22px;
+    font-weight: 700;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    line-height: 1;
+  }
+
+  .usage-modal-close:hover {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
+
+  .usage-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--hdsr-green);
+  }
+
+  .usage-tag {
+    background: var(--hdsr-green);
+    color: white;
+    padding: 16px 14px;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: 'Zen Old Mincho', serif;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+    line-height: 1.3;
+  }
+
+  .usage-title {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+  }
+
+  .usage-intro {
+    background: var(--bg-card);
+    padding: 16px 20px;
+    border-radius: 2px;
+    border: 1px solid var(--border);
+    margin-bottom: 24px;
+    font-size: 13px;
+    line-height: 1.9;
+    color: var(--ink);
+  }
+
+  .usage-intro p { margin-bottom: 10px; }
+  .usage-intro p:last-child { margin-bottom: 0; }
+
+  .usage-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .usage-q-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 12px 14px;
+    border-left: 3px solid var(--hdsr-green);
+  }
+
+  .usage-q-num {
+    display: inline-block;
+    background: var(--hdsr-green);
+    color: white;
+    padding: 2px 10px;
+    border-radius: 2px;
+    font-family: 'Zen Old Mincho', serif;
+    font-weight: 700;
+    font-size: 12px;
+    margin-right: 8px;
+    letter-spacing: 0.05em;
+  }
+
+  .usage-q-name {
+    display: inline-block;
+    font-family: 'Zen Old Mincho', serif;
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 15px;
+    margin-bottom: 8px;
+    vertical-align: middle;
+  }
+
+  .usage-q-card p {
+    font-size: 12px;
+    line-height: 1.85;
+    color: var(--ink);
+  }
+
+  .usage-judgment-section {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--hdsr-green);
+    border-radius: 2px;
+    padding: 14px 18px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .usage-judgment-tag {
+    background: var(--hdsr-green);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 3px;
+    font-family: 'Zen Old Mincho', serif;
+    font-weight: 700;
+    font-size: 13px;
+    flex-shrink: 0;
+    letter-spacing: 0.1em;
+  }
+
+  .usage-judgment-section p {
+    font-size: 12.5px;
+    line-height: 1.9;
+    color: var(--ink);
+  }
+
+  .usage-source {
+    text-align: right;
+    font-size: 11px;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  @media (max-width: 700px) {
+    .usage-modal { padding: 10px; }
+    .usage-modal-content { padding: 20px 16px 24px; }
+    .usage-header { gap: 12px; }
+    .usage-tag { width: 64px; height: 64px; font-size: 14px; padding: 10px; }
+    .usage-title { font-size: 17px; }
+    .usage-grid { grid-template-columns: 1fr; gap: 8px; }
+    .usage-q-card { padding: 10px 12px; }
+    .usage-q-name { font-size: 14px; }
+    .usage-q-card p { font-size: 11.5px; }
+    .usage-judgment-section { flex-direction: column; gap: 8px; padding: 12px 14px; }
+  }
+
+  @media (max-width: 600px) {
+    .hdsr-sheet { padding: 14px 12px; }
+    .hdsr-sheet-header { padding: 12px 14px; flex-wrap: wrap; gap: 8px; }
+    .hdsr-sheet-title { font-size: 14px; }
+    .hdsr-q-head { gap: 8px; padding: 10px 12px; }
+    .hdsr-q-title { font-size: 13px; min-width: 150px; }
+    .hdsr-q-rule { font-size: 11px; }
+    .hdsr-q-body { padding: 10px 12px; }
+    .hdsr-row { font-size: 12px; gap: 8px; }
+    .hdsr-label { min-width: 48px; font-size: 11px; }
+    .hdsr-user-ans { font-size: 14px; }
+    .hdsr-total-num { font-size: 28px; }
+    .hdsr-judgment { flex-direction: column; gap: 8px; }
+    .hdsr-judgment-text { font-size: 12px; }
+  }
+
   .fade-in { animation: fadeIn 0.5s ease-out; }
 
   @keyframes fadeIn {
@@ -1432,6 +2267,91 @@
     <div id="answersReview" class="hidden"></div>
   </div>
 
+  <!-- USAGE GUIDE MODAL (PDF page 1 equivalent) -->
+  <div id="usageGuide" class="usage-modal hidden">
+    <div class="usage-modal-backdrop" onclick="hideUsageGuide()"></div>
+    <div class="usage-modal-content">
+      <button class="usage-modal-close" onclick="hideUsageGuide()" aria-label="閉じる">×</button>
+
+      <div class="usage-header">
+        <div class="usage-tag">認知症</div>
+        <h2 class="usage-title">長谷川式簡易知能評価スケールの<br>使い方と採点方法</h2>
+      </div>
+
+      <div class="usage-intro">
+        <p>長谷川式簡易知能評価スケールとは、一般の高齢者から認知症高齢者をスクリーニングすることを目的に作成されたものであり、記憶を中心とした高齢者の大まかな認知機能障害の有無をとらえることを目的としております。</p>
+        <p>この長谷川式スケールは被験者の理解（協力）が得られるかが検査をする上で重要なポイントになってきます。</p>
+        <p>また、認知症だということを認めたくない被験者の中には、病気でないことを装う人もいますので、テストをする際には、客観的に観察する技術や洞察力などが少ないながら必要です。</p>
+        <p>そこで、認知症の疑いがある患者に対して、この長谷川式スケールを実施する場合に、どのような点に注意したら良いのか、その具体的な使い方を下記のとおりまとめました。</p>
+      </div>
+
+      <div class="usage-grid">
+        <div class="usage-q-card">
+          <div class="usage-q-num">設問 1</div>
+          <div class="usage-q-name">年齢</div>
+          <p>「あなたの年齢はいくつですか？」と問い、満年齢が正確に言えれば1点。2年までの誤差は正答とみなします。</p>
+        </div>
+
+        <div class="usage-q-card">
+          <div class="usage-q-num">設問 2</div>
+          <div class="usage-q-name">日時の見当識</div>
+          <p>「今日は何月何日ですか？」「何曜日ですか？」「今年は何年でしょう？」と尋ね、各正答に対してそれぞれ1点を与えます（順不同に尋ねても可）。また、年については西暦でも正答とみなします。</p>
+        </div>
+
+        <div class="usage-q-card">
+          <div class="usage-q-num">設問 3</div>
+          <div class="usage-q-name">場所の見当識</div>
+          <p>「私たちが今いる場所はどこですか？」と問い、被験者が、現在いる場所がどこなのか自発的に答えられれば2点を与えます（場所が本質的にとらえられていればよい）。病院名や施設名、住所などは正確に答えられなくてもよい。もし正答が出てこない場合には、5秒程度おいて「ここは家ですか？病院ですか？施設ですか？」のようにヒントを出しながら問いかけ、正しく選択できれば1点を与えます。</p>
+        </div>
+
+        <div class="usage-q-card">
+          <div class="usage-q-num">設問 4</div>
+          <div class="usage-q-name">3つの言葉の記銘</div>
+          <p>「これから言う3つの言葉を言ってみてください。あとで聞きますのでよく覚えておいてください」と教示します。3つの言葉は「桜・猫・電車」あるいは「梅・犬・自動車」のどちらか一方を、ゆっくり切って発音し、被験者にも後に続いて繰り返し発音してもらい、一つの言葉に対して1点を与えます。もし、3回以上繰り返しても覚えられない場合はそこで打ち切り、次の設問へ進みます。</p>
+        </div>
+
+        <div class="usage-q-card">
+          <div class="usage-q-num">設問 5</div>
+          <div class="usage-q-name">計算問題</div>
+          <p>「100引く7はいくつですか？」と問い、答えが出たら「それからまた7を引くといくつですか？」と問う。正答に対して各1点を与えます。最初の計算に失敗した5打ち切り、次の設問に進みます。なお、最初の引き算を終えず続けて質問する際「93から7を引くといくつですか？」のように"93"という数字を言ってはいけません。</p>
+        </div>
+
+        <div class="usage-q-card">
+          <div class="usage-q-num">設問 6</div>
+          <div class="usage-q-name">数字の逆唱</div>
+          <p>「私がこれから言う数字を逆から言って下さい」と教示した後、ゆっくりと間隔をおいて数字を発音します。数字は正答に対して各1点を与えますが、最初の逆唱に失敗したらそこで打ち切り、次の設問へ進みます。</p>
+        </div>
+
+        <div class="usage-q-card">
+          <div class="usage-q-num">設問 7</div>
+          <div class="usage-q-name">3つの言葉の遅延再生</div>
+          <p>「先ほど（設問4）覚えてもらった言葉をもう一度言ってみて下さい」と教示します。3つの言葉のうち自発的に答えられたものには2点を与え、答えられなかった言葉に対しては、少し考える時間を与えた後、それぞれ別々にヒント（例：ひとつは（植物 or 動物 or 乗り物）でしたね）を出します。ただし、「植物と動物がありましたね」というように立て続けにヒントは出しません。ヒントによって答えられたものには1点を与えます。</p>
+        </div>
+
+        <div class="usage-q-card">
+          <div class="usage-q-num">設問 8</div>
+          <div class="usage-q-name">5つの物品記銘</div>
+          <p>「これからあなたに5つの品物を見せます。それを隠しますから、そこに何があったかを答えて下さい。順番はどうでも構いません」と教示します。物品は特に指定はないが相互に無関係なもの（例：時計、鍵、タバコ、ペン、硬貨…など）を用意し、一つずつゆっくりと名前を言いながら並べていきます。各正答に対してそれぞれ1点を与えます。</p>
+        </div>
+
+        <div class="usage-q-card">
+          <div class="usage-q-num">設問 9</div>
+          <div class="usage-q-name">言葉の流ちょう性</div>
+          <p>「あなたが知っている野菜の名前をできるだけたくさん言って下さい」と教示し、答えてもらった野菜の名前を用紙に記入します。6個までは採点せず、6個以上に1点ずつ加算（6個…1点 / 7個…2点 / 8個…3点 / 9個…4点 / 10個…5点）。野菜の名前は重複しても構いませんが、重複分は採点しません。また、途中で言葉に詰まり、約10秒待っても出てこない場合はそこで打ち切ります。</p>
+        </div>
+      </div>
+
+      <div class="usage-judgment-section">
+        <div class="usage-judgment-tag">判定方法</div>
+        <p>30点満点で、20点以下のとき、認知症の可能性が高いと判断されます。ただし、長谷川式スケールはあくまで簡易テストなので、被験者の点数が高いから認知症ではない、低いからと言って認知症であると必ずしも断定することは出来ません。</p>
+      </div>
+
+      <div class="usage-source">
+        ※ 出典：「認知症 長谷川式簡易知能評価スケールの使い方と採点方法」（一般社団法人 名古屋市医師会）に基づく
+      </div>
+    </div>
+  </div>
+
   <div class="footer-note">
     ※ 加藤伸司ら, 改訂 長谷川式簡易知能評価スケール（HDS-R）の作成. 老年精神医学雑誌 1991.
   </div>
@@ -1452,23 +2372,22 @@ function cancelFlashTimers() {
   if (typeof stopVegTimer === 'function') stopVegTimer();
 }
 
-// Each entry is one screen. `qNum` is the displayed question number (1..8).
-// `words_memorize` is an instruction screen (no qNum) — it shows 3 words to memorize but is not numbered as a question.
-// Some questions span multiple screens (e.g., Q4 calculation has two screens) but share the same qNum.
+// Each entry is one screen. `qNum` is the displayed question number (1..9).
+// Some questions span multiple screens (e.g., Q5 calculation) but share the same qNum.
 const questions = [
   { id: 'age', qNum: 1, title: 'お歳はいくつですか？', type: 'age' },
   { id: 'datetime', qNum: 2, title: '今日は何年何月何日ですか？ 何曜日ですか？', type: 'datetime' },
   { id: 'place', qNum: 3, title: '私たちが今いるところはどこですか？', type: 'place' },
-  { id: 'words_memorize', qNum: null, title: 'これから3つの言葉を言います。あとでまた聞きますので、よく覚えておいてください。', type: 'words_memorize' },
-  { id: 'calc_a', qNum: 4, title: '100から7を引いてください。', type: 'calc_a' },
-  { id: 'calc_b', qNum: 4, title: '先ほどの答えから、さらに7を引いてください。', type: 'calc_b' },
-  { id: 'rev_a', qNum: 5, title: 'これから表示される数字を、逆から言ってください。', type: 'rev_a' },
-  { id: 'rev_b', qNum: 5, title: 'これから表示される数字を、逆から言ってください。', type: 'rev_b' },
-  { id: 'words_recall', qNum: 6, title: '先ほど覚えていただいた3つの言葉を、もう一度言ってください。', type: 'words_recall' },
-  { id: 'objects', qNum: 7, title: 'これから5つの品物を順番にお見せします。終わったら、何があったか答えてください。', type: 'objects' },
-  { id: 'vegetables', qNum: 8, title: '知っている野菜の名前を、できるだけたくさん答えてください。', type: 'vegetables' }
+  { id: 'words_memorize', qNum: 4, title: 'これから3つの言葉が表示されます。よく覚えてから、その言葉を入力してください。', type: 'words_memorize' },
+  { id: 'calc_a', qNum: 5, title: '100から7を引いてください。', type: 'calc_a' },
+  { id: 'calc_b', qNum: 5, title: '先ほどの答えから、さらに7を引いてください。', type: 'calc_b' },
+  { id: 'rev_a', qNum: 6, title: 'これから表示される数字を、逆から言ってください。', type: 'rev_a' },
+  { id: 'rev_b', qNum: 6, title: 'これから表示される数字を、逆から言ってください。', type: 'rev_b' },
+  { id: 'words_recall', qNum: 7, title: '先ほど覚えていただいた3つの言葉を、もう一度言ってください。', type: 'words_recall' },
+  { id: 'objects', qNum: 8, title: 'これから5つの品物を順番にお見せします。終わったら、何があったか答えてください。', type: 'objects' },
+  { id: 'vegetables', qNum: 9, title: '知っている野菜の名前を、できるだけたくさん答えてください。', type: 'vegetables' }
 ];
-const TOTAL_QUESTION_NUMBERS = 8;
+const TOTAL_QUESTION_NUMBERS = 9;
 
 const wordSets = [
   { words: ['桜', '猫', '電車'] },
@@ -1642,13 +2561,26 @@ function renderAnswerArea(q) {
 
     case 'place': {
       const val = answers.place?.value ?? '';
+      const placeHintUsed = answers.place?.hintUsed ?? false;
       area.innerHTML = `
-        <div style="padding: 32px 0; text-align: center;">
-          <input type="text" class="text-input" 
-                 style="max-width: 420px;"
-                 value="${escapeHtml(val)}"
-                 placeholder="今いる場所を入力してください"
-                 oninput="saveAnswer('place', this.value)">
+        <div style="padding: 24px 0 16px;">
+          <div style="text-align: center; margin-bottom: 16px;">
+            <input type="text" class="text-input" 
+                   style="max-width: 420px;"
+                   value="${escapeHtml(val)}"
+                   placeholder="今いる場所を入力してください"
+                   oninput="saveAnswer('place', this.value)">
+          </div>
+          <div class="hint-row">
+            <button type="button" class="hint-btn ${placeHintUsed ? 'hint-btn-used' : ''}" 
+                    onclick="togglePlaceHint()">
+              <span class="hint-btn-label">ヒント</span>
+              ${placeHintUsed ? '<span class="hint-btn-value">家ですか？病院ですか？施設ですか？</span>' : ''}
+            </button>
+          </div>
+          <div class="hint-note">
+            わからない場合のみヒントをみてください
+          </div>
         </div>
       `;
       break;
@@ -1656,19 +2588,47 @@ function renderAnswerArea(q) {
 
     case 'words_memorize': {
       const set = answers._wordSet;
+      const state = answers.words_memorize || {};
+      const shown = state.shown;
+      const recalled = state.recalled || ['', '', ''];
+
       area.innerHTML = `
-        <div class="words-display">
-          ${set.words.map(w => `<div class="word-card">${w}</div>`).join('')}
-        </div>
-        <div class="memo-message">
-          この3つの言葉をよく覚えてください<br>
-          <span style="font-size: 13px; font-weight: normal; color: var(--ink-soft);">※ あとの問題で再びお聞きします</span>
-        </div>
-        <div style="text-align: center; margin-top: 24px; color: var(--ink-soft); font-size: 13px;">
-          覚えたら「次へ」を押してください
+        <div>
+          <div style="color: var(--ink-soft); font-size: 14px; margin-bottom: 12px; text-align: center;">
+            「スタート」を押すと、3つの言葉が10秒間表示されます。<br>
+            よく覚えてから、その言葉を下に入力してください。
+          </div>
+          <div class="flash-stage" id="flashStageWords">
+            <div class="flash-idle">
+              <div class="flash-idle-icon">＊＊＊</div>
+              <div>ボタンを押すと開始します</div>
+            </div>
+          </div>
+          <div class="flash-controls">
+            <button class="flash-start-btn" id="startFlashWords" onclick="startWordsMemorizeFlash()" ${shown ? 'disabled' : ''}>
+              ${shown ? '✓ 再生済み' : '▶ スタート'}
+            </button>
+            ${shown ? '<div class="flash-replay-note">※ 再生は1度だけです</div>' : ''}
+          </div>
+          <div style="margin-top: 28px;">
+            <div style="text-align: center; margin-bottom: 16px; color: var(--ink-soft); font-size: 14px;">
+              ${shown ? '覚えた言葉を入力してください' : '再生後に入力欄が有効になります'}
+            </div>
+            <div class="multi-input-grid">
+              ${[0,1,2].map(i => `
+                <div class="multi-input-row">
+                  <div class="multi-input-num">${i+1}</div>
+                  <input type="text" class="text-input" 
+                         value="${escapeHtml(recalled[i] ?? '')}" 
+                         oninput="saveWordsMemorizeRecall(${i}, this.value)" 
+                         placeholder="${i === 0 ? '1つめの言葉' : i === 1 ? '2つめの言葉' : '3つめの言葉'}"
+                         ${shown ? '' : 'disabled style="opacity:0.4;"'}>
+                </div>
+              `).join('')}
+            </div>
+          </div>
         </div>
       `;
-      if (!answers.words_memorize) answers.words_memorize = { viewed: true };
       break;
     }
 
@@ -1775,9 +2735,23 @@ function renderAnswerArea(q) {
 
     case 'words_recall': {
       const recall = answers.words_recall?.words || ['', '', ''];
+      const hintsUsed = answers.words_recall?.hintsUsed || [false, false, false];
+      const hintLabels = ['植物', '動物', '乗り物'];
       area.innerHTML = `
-        <div style="text-align: center; margin-bottom: 20px; color: var(--ink-soft); font-size: 14px;">
+        <div style="text-align: center; margin-bottom: 16px; color: var(--ink-soft); font-size: 14px;">
           覚えている言葉を入力してください
+        </div>
+        <div class="hint-row">
+          ${[0,1,2].map(i => `
+            <button type="button" class="hint-btn ${hintsUsed[i] ? 'hint-btn-used' : ''}" 
+                    onclick="toggleHint(${i})">
+              <span class="hint-btn-label">ヒント${i+1}</span>
+              ${hintsUsed[i] ? `<span class="hint-btn-value">${hintLabels[i]}</span>` : ''}
+            </button>
+          `).join('')}
+        </div>
+        <div class="hint-note">
+          わからない場合のみヒントをみてください
         </div>
         <div class="multi-input-grid">
           ${[0,1,2].map(i => `
@@ -1875,7 +2849,7 @@ function renderAnswerArea(q) {
               </div>
               <div class="veg-timer-label">残り秒数</div>
             </div>
-            <div class="vegetables-count" id="vegCount">${vegs.length}</div>
+            <div class="vegetables-count" id="vegCount">${vegs.length}<span class="vegetables-count-divider"> / 10</span></div>
             <div class="vegetables-count-label">入力した数</div>
             <div class="vegetable-input-row">
               <input type="text" class="vegetable-input" id="vegInput" 
@@ -1883,9 +2857,12 @@ function renderAnswerArea(q) {
                      onkeypress="if(event.key==='Enter'){event.preventDefault();addVegetable();}">
               <button class="add-veg-btn" onclick="addVegetable()">追加</button>
             </div>
-            <div style="text-align: center; margin-top: 20px; color: var(--ink-soft); font-size: 13px;">
+            <div class="vegetable-list" id="vegList">
+              ${vegs.map(v => `<div class="veg-chip">${escapeHtml(v)}</div>`).join('')}
+            </div>
+            <div style="text-align: center; margin-top: 16px; color: var(--ink-soft); font-size: 13px;">
               「追加」または Enter キーで入力できます<br>
-              <span style="color: var(--accent);">※ 入力した野菜は確定後、表示されません</span>
+              <span style="color: var(--gold);">※ 10個入力すると自動的に終了します</span>
             </div>
           </div>
         `;
@@ -1987,6 +2964,116 @@ function showDigitsSequentially(sequence, stage, index, onDone) {
       showDigitsSequentially(sequence, stage, index + 1, onDone);
     }, 300);
   }, 2000);
+}
+
+function startWordsMemorizeFlash() {
+  cancelFlashTimers();
+  const stage = document.getElementById('flashStageWords');
+  const btn = document.getElementById('startFlashWords');
+  if (!stage || !btn) return;
+
+  btn.disabled = true;
+
+  // Disable inputs during playback
+  document.querySelectorAll('#answerArea .text-input').forEach(i => {
+    i.disabled = true;
+    i.style.opacity = '0.4';
+  });
+
+  // Brief "starting" cue
+  stage.innerHTML = `<div class="flash-starting">よく見ていてください</div>`;
+
+  activeFlashTimer = setTimeout(() => {
+    showAllMemorizeWords(stage, btn);
+  }, 1000);
+}
+
+const WORDS_DISPLAY_SECONDS = 10;
+const WORDS_RING_CIRCUMFERENCE = 251.3; // 2 * Math.PI * 40
+
+function showAllMemorizeWords(stage, btn) {
+  const set = answers._wordSet;
+
+  // Build the stage ONCE — words stay static, only timer updates.
+  stage.innerHTML = `
+    <div class="objects-flash-wrap">
+      <div class="obj-timer-corner">
+        <svg viewBox="0 0 90 90" class="obj-timer-svg">
+          <circle cx="45" cy="45" r="40" class="obj-ring-bg"/>
+          <circle cx="45" cy="45" r="40" class="obj-ring-progress" id="wordsRingProgress" style="stroke-dashoffset: 0;"/>
+        </svg>
+        <div class="obj-ring-num" id="wordsRingNum">${WORDS_DISPLAY_SECONDS}</div>
+      </div>
+      <div class="words-flash-grid">
+        ${set.words.map(w => `<div class="words-flash-item">${w}</div>`).join('')}
+      </div>
+    </div>
+  `;
+
+  let secondsLeft = WORDS_DISPLAY_SECONDS;
+
+  const updateTimer = () => {
+    const numEl = document.getElementById('wordsRingNum');
+    const ringEl = document.getElementById('wordsRingProgress');
+    if (!numEl || !ringEl) return;
+    numEl.textContent = Math.max(0, secondsLeft);
+    const offset = WORDS_RING_CIRCUMFERENCE * (1 - secondsLeft / WORDS_DISPLAY_SECONDS);
+    ringEl.style.strokeDashoffset = offset;
+
+    ringEl.classList.remove('warning', 'danger');
+    numEl.classList.remove('danger');
+    if (secondsLeft <= 3) {
+      ringEl.classList.add('danger');
+      numEl.classList.add('danger');
+    } else if (secondsLeft <= 6) {
+      ringEl.classList.add('warning');
+    }
+  };
+
+  const tick = () => {
+    secondsLeft--;
+    if (secondsLeft <= 0) {
+      stage.innerHTML = `
+        <div class="flash-done">
+          <div class="flash-done-icon">終</div>
+          <div class="flash-done-text">覚えた言葉を入力してください</div>
+        </div>
+      `;
+      btn.disabled = true;
+      btn.textContent = '✓ 再生済み';
+
+      if (!answers.words_memorize) answers.words_memorize = { recalled: ['','',''] };
+      answers.words_memorize.shown = true;
+
+      // Re-enable inputs
+      document.querySelectorAll('#answerArea .text-input').forEach(i => {
+        i.disabled = false;
+        i.style.opacity = '';
+      });
+
+      // Focus first input
+      const firstInput = document.querySelector('#answerArea .text-input');
+      if (firstInput) firstInput.focus();
+
+      // Update note text above inputs
+      const noteEl = document.querySelector('#answerArea [style*="margin-bottom: 16px"]');
+      if (noteEl) noteEl.textContent = '覚えた言葉を入力してください';
+
+      // Add note
+      const controls = btn.parentElement;
+      if (!controls.querySelector('.flash-replay-note')) {
+        const note = document.createElement('div');
+        note.className = 'flash-replay-note';
+        note.textContent = '※ 再生は1度だけです';
+        controls.appendChild(note);
+      }
+      return;
+    }
+    updateTimer();
+    activeFlashTimer = setTimeout(tick, 1000);
+  };
+
+  activeFlashTimer = setTimeout(tick, 1000);
 }
 
 function startObjectFlash() {
@@ -2125,14 +3212,35 @@ function saveReverseField(field, value) {
 }
 
 function saveRecallWord(index, value) {
-  if (!answers.words_recall) answers.words_recall = { words: ['','',''] };
+  if (!answers.words_recall) answers.words_recall = { words: ['','',''], hintsUsed: [false, false, false] };
+  if (!answers.words_recall.words) answers.words_recall.words = ['','',''];
+  if (!answers.words_recall.hintsUsed) answers.words_recall.hintsUsed = [false, false, false];
   answers.words_recall.words[index] = value;
+}
+
+function toggleHint(index) {
+  if (!answers.words_recall) answers.words_recall = { words: ['','',''], hintsUsed: [false, false, false] };
+  if (!answers.words_recall.hintsUsed) answers.words_recall.hintsUsed = [false, false, false];
+  answers.words_recall.hintsUsed[index] = !answers.words_recall.hintsUsed[index];
+  renderQuestion();
+}
+
+function togglePlaceHint() {
+  if (!answers.place) answers.place = {};
+  answers.place.hintUsed = !answers.place.hintUsed;
+  renderQuestion();
 }
 
 function saveObjectRecall(index, value) {
   if (!answers.objects) answers.objects = { shown: false, recalled: ['','','','',''] };
   if (!answers.objects.recalled) answers.objects.recalled = ['','','','',''];
   answers.objects.recalled[index] = value;
+}
+
+function saveWordsMemorizeRecall(index, value) {
+  if (!answers.words_memorize) answers.words_memorize = { shown: false, recalled: ['','',''] };
+  if (!answers.words_memorize.recalled) answers.words_memorize.recalled = ['','',''];
+  answers.words_memorize.recalled[index] = value;
 }
 
 function startVegetableSession() {
@@ -2221,15 +3329,30 @@ function addVegetable() {
   answers.vegetables.list.push(value);
   input.value = '';
 
-  // Bump count animation
+  // Append chip to list (without re-rendering, to keep input focused)
+  const listEl = document.getElementById('vegList');
+  if (listEl) {
+    const chip = document.createElement('div');
+    chip.className = 'veg-chip';
+    chip.textContent = value;
+    listEl.appendChild(chip);
+  }
+
+  // Update count (preserve the "/ 10" divider span)
   const countEl = document.getElementById('vegCount');
   if (countEl) {
-    countEl.textContent = answers.vegetables.list.length;
+    countEl.innerHTML = `${answers.vegetables.list.length}<span class="vegetables-count-divider"> / 10</span>`;
     countEl.classList.add('bump');
     setTimeout(() => countEl.classList.remove('bump'), 300);
   }
 
-  // Reset timer to 10s on successful entry
+  // Auto-finish when 10 vegetables are reached
+  if (answers.vegetables.list.length >= 10) {
+    finishVegetableSession();
+    return;
+  }
+
+  // Reset timer on successful entry
   resetVegTimer();
   input.focus();
 }
@@ -2244,6 +3367,56 @@ function removeVegetable(index) {
 // ─── NAVIGATION ───
 function nextQuestion() {
   cancelFlashTimers();
+
+  // ─── Skip logic: if Q5 first calc is wrong, skip the second calc screen.
+  // ─── If Q6 first reverse-digit is wrong, skip the second one.
+  const currentQ = questions[currentQuestion];
+
+  // Q5: calc_a → if first answer is given AND not 93, skip calc_b
+  if (currentQ.id === 'calc_a') {
+    const calc = answers.calculation || {};
+    if (calc.first !== undefined && calc.first !== null && calc.first !== 93) {
+      // First answer is wrong: ensure 2nd is cleared, then skip calc_b
+      answers.calculation = answers.calculation || {};
+      answers.calculation.second = undefined;
+      // Find the index of calc_b and skip past it
+      const calcBIdx = questions.findIndex(q => q.id === 'calc_b');
+      if (calcBIdx !== -1 && currentQuestion < calcBIdx) {
+        currentQuestion = calcBIdx + 1;
+        if (currentQuestion >= questions.length) {
+          showResult();
+          return;
+        }
+        renderQuestion();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+    }
+  }
+
+  // Q6: rev_a → if first answer is given AND not "286", skip rev_b
+  if (currentQ.id === 'rev_a') {
+    const rev = answers.reverse_digits || {};
+    const norm = String(rev.first ?? '').replace(/[^0-9]/g, '');
+    if (rev.first !== undefined && rev.first !== '' && norm !== '286') {
+      // First answer is wrong: ensure 2nd is cleared, then skip rev_b
+      answers.reverse_digits = answers.reverse_digits || {};
+      answers.reverse_digits.second = undefined;
+      answers.reverse_digits.secondShown = false;
+      const revBIdx = questions.findIndex(q => q.id === 'rev_b');
+      if (revBIdx !== -1 && currentQuestion < revBIdx) {
+        currentQuestion = revBIdx + 1;
+        if (currentQuestion >= questions.length) {
+          showResult();
+          return;
+        }
+        renderQuestion();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+    }
+  }
+
   if (currentQuestion < questions.length - 1) {
     currentQuestion++;
     renderQuestion();
@@ -2257,6 +3430,21 @@ function prevQuestion() {
   cancelFlashTimers();
   if (currentQuestion > 0) {
     currentQuestion--;
+    // If we land on calc_b but Q5 first was wrong, skip back to calc_a
+    const q = questions[currentQuestion];
+    if (q.id === 'calc_b') {
+      const calc = answers.calculation || {};
+      if (calc.first !== undefined && calc.first !== null && calc.first !== 93) {
+        if (currentQuestion > 0) currentQuestion--;
+      }
+    }
+    if (q.id === 'rev_b') {
+      const rev = answers.reverse_digits || {};
+      const norm = String(rev.first ?? '').replace(/[^0-9]/g, '');
+      if (rev.first !== undefined && rev.first !== '' && norm !== '286') {
+        if (currentQuestion > 0) currentQuestion--;
+      }
+    }
     renderQuestion();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
@@ -2276,12 +3464,29 @@ function showResult() {
 function restart() {
   currentQuestion = 0;
   for (const k in answers) delete answers[k];
+  for (const k in scoreOverrides) delete scoreOverrides[k];
   document.getElementById('screen-result').classList.add('hidden');
   document.getElementById('screen-start').classList.remove('hidden');
   document.getElementById('screen-start').classList.add('fade-in');
 }
 
 // ─── ANSWERS REVIEW ───
+function showUsageGuide() {
+  const modal = document.getElementById('usageGuide');
+  if (modal) {
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function hideUsageGuide() {
+  const modal = document.getElementById('usageGuide');
+  if (modal) {
+    modal.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+}
+
 function toggleAnswersReview() {
   const reviewEl = document.getElementById('answersReview');
   const btn = document.getElementById('showAnswersBtn');
@@ -2301,127 +3506,221 @@ function toggleAnswersReview() {
   }
 }
 
+// Score overrides: when the user manually adjusts a question's score in the review.
+// Keys are 'q1', 'q2', ..., 'q9'.  Values are integers (overrides automatic score).
+const scoreOverrides = {};
+
+// Q-by-Q max scores (HDS-R standard)
+const Q_MAX = { q1: 1, q2: 4, q3: 2, q4: 3, q5: 2, q6: 2, q7: 6, q8: 5, q9: 5 };
+
+// Compute the auto-computed score for a question (returns null for Q1-Q3, which can't be auto-scored)
+function computeAutoScore(qkey) {
+  switch (qkey) {
+    case 'q4': {
+      const memWords = answers._wordSet?.words || [];
+      const recalled = (answers.words_memorize?.recalled || []).map(w => (w || '').trim());
+      let s = 0;
+      const matched = new Set();
+      recalled.filter(w => w).forEach(w => {
+        for (const c of memWords) {
+          if (matched.has(c)) continue;
+          if (matchesAny(w, [c])) { matched.add(c); s++; break; }
+        }
+      });
+      return s;
+    }
+    case 'q5': {
+      const calc = answers.calculation || {};
+      let s = 0;
+      if (calc.first === 93) {
+        s++;
+        if (calc.second === 86) s++;
+      }
+      return s;
+    }
+    case 'q6': {
+      const rev = answers.reverse_digits || {};
+      const norm = s => String(s ?? '').replace(/[^0-9]/g, '');
+      let s = 0;
+      if (norm(rev.first) === '286') {
+        s++;
+        if (norm(rev.second) === '9253') s++;
+      }
+      return s;
+    }
+    case 'q7': {
+      const memWords = answers._wordSet?.words || [];
+      const recalled = (answers.words_recall?.words || []).map(w => (w || '').trim());
+      const hintsUsed = answers.words_recall?.hintsUsed || [false, false, false];
+      let s = 0;
+      const matched = new Set();
+      recalled.forEach((w, i) => {
+        if (!w) return;
+        for (const c of memWords) {
+          if (matched.has(c)) continue;
+          if (matchesAny(w, [c])) {
+            matched.add(c);
+            // 2 points if no hint used for this slot, 1 point if hint was used
+            s += hintsUsed[i] ? 1 : 2;
+            break;
+          }
+        }
+      });
+      return s;
+    }
+    case 'q8': {
+      const objNames = ['時計', '鍵', 'タバコ', 'ペン', '硬貨'];
+      const objSyn = {
+        '時計': ['時計', 'とけい', 'トケイ'],
+        '鍵': ['鍵', 'かぎ', 'カギ', 'キー'],
+        'タバコ': ['タバコ', 'たばこ', '煙草'],
+        'ペン': ['ペン', 'ぺん', '筆記具', 'ボールペン', '万年筆'],
+        '硬貨': ['硬貨', 'こうか', 'コイン', 'お金', 'おかね']
+      };
+      const recalled = (answers.objects?.recalled || []).map(w => (w || '').trim()).filter(w => w);
+      let s = 0;
+      const matched = new Set();
+      recalled.forEach(w => {
+        for (const c of objNames) {
+          if (matched.has(c)) continue;
+          if ((objSyn[c] || [c]).some(x => normalizeText(x) === normalizeText(w))) {
+            matched.add(c); s++; break;
+          }
+        }
+      });
+      return s;
+    }
+    case 'q9': {
+      const v = (answers.vegetables?.list || []).length;
+      if (v >= 10) return 5;
+      if (v === 9) return 4;
+      if (v === 8) return 3;
+      if (v === 7) return 2;
+      if (v === 6) return 1;
+      return 0;
+    }
+    default:
+      return null; // Q1-Q3 can't be auto-scored
+  }
+}
+
+// Get the effective score (override if set, otherwise auto, otherwise 0 for Q1-Q3)
+function getEffectiveScore(qkey) {
+  if (scoreOverrides[qkey] !== undefined) return scoreOverrides[qkey];
+  const auto = computeAutoScore(qkey);
+  return auto === null ? 0 : auto;
+}
+
+// User-facing handler for score change
+function onScoreChange(qkey, value) {
+  const v = parseInt(value);
+  if (isNaN(v)) {
+    delete scoreOverrides[qkey];
+  } else {
+    scoreOverrides[qkey] = Math.max(0, Math.min(Q_MAX[qkey], v));
+  }
+  // Re-render only the score-summary (avoid re-rendering whole review)
+  updateTotalScoreDisplay();
+}
+
+function updateTotalScoreDisplay() {
+  const numEl = document.getElementById('hdsrTotalNum');
+  if (!numEl) return;
+  let total = 0;
+  for (const k of Object.keys(Q_MAX)) total += getEffectiveScore(k);
+  numEl.textContent = total;
+}
+
+// Build a select element for score override
+function scoreSelect(qkey) {
+  const max = Q_MAX[qkey];
+  const auto = computeAutoScore(qkey);
+  const current = getEffectiveScore(qkey);
+  const isOverridden = scoreOverrides[qkey] !== undefined;
+  let opts = '';
+  for (let i = 0; i <= max; i++) {
+    opts += `<option value="${i}" ${i === current ? 'selected' : ''}>${i} 点</option>`;
+  }
+  const autoLabel = auto === null ? '' : `<span class="hdsr-auto-label">（自動採点：${auto}点）</span>`;
+  const overrideMark = isOverridden ? ' <span class="hdsr-override-mark">手動修正</span>' : '';
+  return `
+    <div class="hdsr-score-edit">
+      <label class="hdsr-score-edit-label">採点</label>
+      <select class="hdsr-score-select" onchange="onScoreChange('${qkey}', this.value)">${opts}</select>
+      <span class="hdsr-score-edit-max">/ ${max} 点</span>
+      ${autoLabel}${overrideMark}
+    </div>
+  `;
+}
+
 function buildAnswersReview() {
-  const items = [];
-
-  // Q1 - age (no scoring)
+  // ─── COMPUTE EACH QUESTION'S DATA ───
   const ageVal = answers.age?.value;
-  items.push({
-    num: 'Q1',
-    q: 'お歳はいくつですか？',
-    value: ageVal ? `${ageVal} 歳` : null
-  });
 
-  // Q2 - datetime (no scoring)
   const dt = answers.datetime || {};
-  const dtParts = [];
-  if (dt.year) dtParts.push(`${dt.year}年`);
-  if (dt.month) dtParts.push(`${dt.month}月`);
-  if (dt.day) dtParts.push(`${dt.day}日`);
-  if (dt.dow) dtParts.push(`${dt.dow}曜日`);
-  items.push({
-    num: 'Q2',
-    q: '今日は何年何月何日ですか？ 何曜日ですか？',
-    value: dtParts.length > 0 ? dtParts.join(' ') : null
+
+  const placeVal = answers.place?.value;
+
+  // Q4: 3-word immediate recall — for chip rendering
+  const memWords = answers._wordSet?.words || [];
+  const memorizeRecallWords = (answers.words_memorize?.recalled || []).map(w => (w || '').trim());
+  const matchedMemorize = new Set();
+  const memorizeChips = memorizeRecallWords.filter(w => w).map(w => {
+    let matched = null;
+    for (const c of memWords) {
+      if (matchedMemorize.has(c)) continue;
+      if (matchesAny(w, [c])) { matched = c; break; }
+    }
+    if (matched) { matchedMemorize.add(matched); return { text: w, ok: true }; }
+    return { text: w, ok: false };
   });
 
-  // Q3 - place (no scoring)
-  items.push({
-    num: 'Q3',
-    q: '今いる場所',
-    value: answers.place?.value || null
-  });
-
-  // Memorized words — instruction screen only, not numbered as a question
-  const set = answers._wordSet;
-  items.push({
-    num: '参考',
-    q: '覚えていただいた3つの言葉',
-    value: set ? `（${set.words.join(' ・ ')}）` : null,
-    note: true,
-    isInfo: true
-  });
-
-  // ─── Q4: Calculation (max 2 points) ───
+  // Q5: calculation status (just for display, not score)
   const calc = answers.calculation || {};
-  const calcParts = [];
-  let calcScore = 0;
-  const calcMax = 2;
+  let calc1Status = null, calc2Status = null;
   if (calc.first !== undefined && calc.first !== null) {
     const ok1 = calc.first === 93;
-    if (ok1) calcScore++;
-    calcParts.push(`100 − 7 → <strong>${calc.first}</strong> ${ok1 ? '<span class="score-ok">○</span>' : '<span class="score-ng">×</span>'}`);
-    // Second only counts if first was correct (HDS-R rule: stop if first wrong)
-    if (ok1 && calc.second !== undefined && calc.second !== null) {
-      const ok2 = calc.second === 86;
-      if (ok2) calcScore++;
-      calcParts.push(`その答え − 7 → <strong>${calc.second}</strong> ${ok2 ? '<span class="score-ok">○</span>' : '<span class="score-ng">×</span>'}`);
-    } else if (calc.second !== undefined && calc.second !== null) {
-      calcParts.push(`その答え − 7 → <strong>${calc.second}</strong> <span class="score-ng">×</span>`);
+    calc1Status = { value: calc.first, ok: ok1 };
+    if (calc.second !== undefined && calc.second !== null) {
+      const ok2 = ok1 && calc.second === 86;
+      calc2Status = { value: calc.second, ok: ok2 };
     }
   }
-  items.push({
-    num: 'Q4',
-    q: '計算',
-    valueHtml: calcParts.length > 0 ? calcParts.join('<br>') : null,
-    score: calcScore,
-    scoreMax: calcMax
-  });
 
-  // ─── Q5: Reverse digits (max 2 points) ───
-  // First sequence "682" → reverse "286"
-  // Second sequence "3529" → reverse "9253"
+  // Q6: reverse digit status (no skip flag — per requirements)
   const rev = answers.reverse_digits || {};
-  const revParts = [];
-  let revScore = 0;
-  const revMax = 2;
   const normalize = s => String(s ?? '').replace(/[^0-9]/g, '');
-  const first1 = normalize(rev.first);
+  let rev1Status = null, rev2Status = null;
   if (rev.first !== undefined && rev.first !== '') {
-    const ok1 = first1 === '286';
-    if (ok1) revScore++;
-    revParts.push(`問1：<strong>${escapeHtml(rev.first)}</strong> ${ok1 ? '<span class="score-ok">○</span>' : '<span class="score-ng">×</span>'}`);
-    // 2nd only counts if 1st was correct (HDS-R rule)
-    if (ok1 && rev.second !== undefined && rev.second !== '') {
-      const second2 = normalize(rev.second);
-      const ok2 = second2 === '9253';
-      if (ok2) revScore++;
-      revParts.push(`問2：<strong>${escapeHtml(rev.second)}</strong> ${ok2 ? '<span class="score-ok">○</span>' : '<span class="score-ng">×</span>'}`);
-    } else if (rev.second !== undefined && rev.second !== '') {
-      revParts.push(`問2：<strong>${escapeHtml(rev.second)}</strong> <span class="score-ng">×</span>`);
+    const ok1 = normalize(rev.first) === '286';
+    rev1Status = { value: rev.first, ok: ok1 };
+    if (rev.second !== undefined && rev.second !== '') {
+      const ok2 = ok1 && normalize(rev.second) === '9253';
+      rev2Status = { value: rev.second, ok: ok2 };
     }
   }
-  items.push({
-    num: 'Q5',
-    q: '数字の逆唱',
-    valueHtml: revParts.length > 0 ? revParts.join('<br>') : null,
-    score: revScore,
-    scoreMax: revMax
-  });
 
-  // ─── Q6: Delayed recall of 3 words (max 6 points, 2 each) ───
-  // Self-recall scoring: 2pt per matched word. Hint-based recall (1pt) cannot be auto-detected.
+  // Q7: delayed recall chips (with hint indication)
   const recallWords = (answers.words_recall?.words || []).map(w => (w || '').trim());
-  const memorizedWords = answers._wordSet?.words || [];
-  let recallScore = 0;
-  const recallMax = 6;
-  const recallChips = recallWords.filter(w => w).map(w => {
-    const ok = matchesAny(w, memorizedWords);
-    if (ok) recallScore += 2;
-    return { text: w, ok };
-  });
-  items.push({
-    num: 'Q6',
-    q: '3つの言葉の遅延再生',
-    chips: recallChips.length > 0 ? recallChips : null,
-    score: recallScore,
-    scoreMax: recallMax
-  });
+  const hintsUsed = answers.words_recall?.hintsUsed || [false, false, false];
+  const matchedRecall = new Set();
+  const recallChips = recallWords.map((w, i) => {
+    if (!w) return null;
+    let matched = null;
+    for (const c of memWords) {
+      if (matchedRecall.has(c)) continue;
+      if (matchesAny(w, [c])) { matched = c; break; }
+    }
+    if (matched) {
+      matchedRecall.add(matched);
+      return { text: w, ok: true, hint: hintsUsed[i] };
+    }
+    return { text: w, ok: false, hint: hintsUsed[i] };
+  }).filter(c => c !== null);
 
-  // ─── Q7: 5 objects recall (max 5 points, 1 each) ───
+  // Q8: 5 objects
   const objNames = ['時計', '鍵', 'タバコ', 'ペン', '硬貨'];
-  // Synonyms / acceptable variations
-  const objSynonyms = {
+  const objSyn = {
     '時計': ['時計', 'とけい', 'トケイ'],
     '鍵': ['鍵', 'かぎ', 'カギ', 'キー'],
     'タバコ': ['タバコ', 'たばこ', '煙草'],
@@ -2429,110 +3728,319 @@ function buildAnswersReview() {
     '硬貨': ['硬貨', 'こうか', 'コイン', 'お金', 'おかね']
   };
   const objRecalled = (answers.objects?.recalled || []).map(w => (w || '').trim()).filter(w => w);
-  let objScore = 0;
-  const objMax = 5;
   const matchedObjects = new Set();
   const objChips = objRecalled.map(w => {
     let matched = null;
-    for (const canonical of objNames) {
-      if (matchedObjects.has(canonical)) continue;
-      if ((objSynonyms[canonical] || [canonical]).some(s => normalizeText(s) === normalizeText(w))) {
-        matched = canonical;
-        break;
-      }
+    for (const c of objNames) {
+      if (matchedObjects.has(c)) continue;
+      if ((objSyn[c] || [c]).some(s => normalizeText(s) === normalizeText(w))) { matched = c; break; }
     }
-    if (matched) {
-      matchedObjects.add(matched);
-      objScore++;
-      return { text: w, ok: true };
-    }
+    if (matched) { matchedObjects.add(matched); return { text: w, ok: true }; }
     return { text: w, ok: false };
   });
-  items.push({
-    num: 'Q7',
-    q: '5つの品物',
-    chips: objChips.length > 0 ? objChips : null,
-    score: objScore,
-    scoreMax: objMax
-  });
 
-  // ─── Q8: Vegetable fluency (max 5 points) ───
+  // Q9: vegetables
   const vegs = answers.vegetables?.list || [];
-  let vegScore = 0;
-  const vegMax = 5;
-  if (vegs.length >= 10) vegScore = 5;
-  else if (vegs.length === 9) vegScore = 4;
-  else if (vegs.length === 8) vegScore = 3;
-  else if (vegs.length === 7) vegScore = 2;
-  else if (vegs.length === 6) vegScore = 1;
-  else vegScore = 0;
-  items.push({
-    num: 'Q8',
-    q: '知っている野菜の名前',
-    chips: vegs.length > 0 ? vegs.map(v => ({ text: v, ok: null })) : null,
-    score: vegScore,
-    scoreMax: vegMax,
-    suffix: `全 ${vegs.length} 個`
-  });
 
-  // ─── Compute total for scorable items (Q4–Q8) ───
-  // Note: The 3-words memorize screen is informational only and not auto-scored here.
-  const scorableItems = items.filter(it => it.score !== undefined);
-  const totalScore = scorableItems.reduce((sum, it) => sum + it.score, 0);
-  const totalMax = scorableItems.reduce((sum, it) => sum + it.scoreMax, 0);
+  // ─── HELPERS ───
+  const okMark = '<span class="hdsr-mark hdsr-mark-ok">○</span>';
+  const ngMark = '<span class="hdsr-mark hdsr-mark-ng">×</span>';
 
-  let html = `
-    <div class="answers-review">
-      <div class="answers-review-subtitle">YOUR ANSWERS</div>
-      <div class="answers-review-title">あなたの回答</div>
-      <div class="score-summary">
-        <div class="score-summary-label">自動採点（Q4〜Q8）</div>
-        <div class="score-summary-value">
-          <span class="score-summary-num">${totalScore}</span>
-          <span class="score-summary-max">/ ${totalMax}</span>
-        </div>
-        <div class="score-summary-note">※ Q1〜Q3は自動採点の対象外です</div>
-      </div>
+  const formatAnswer = (val, isEmpty) => isEmpty
+    ? '<span class="hdsr-empty">未回答</span>'
+    : `<span class="hdsr-user-ans">${escapeHtml(val)}</span>`;
+
+  const renderChip = c => {
+    let cls = 'hdsr-chip';
+    if (c.ok === true) cls += ' hdsr-chip-ok';
+    else if (c.ok === false) cls += ' hdsr-chip-ng';
+    const mark = c.ok === true ? ' ○' : c.ok === false ? ' ×' : '';
+    const hintBadge = c.hint ? '<span class="hdsr-hint-badge">ヒント使用</span>' : '';
+    return `<span class="${cls}">${escapeHtml(c.text)}${mark}${hintBadge}</span>`;
+  };
+
+  // ─── BUILD HTML ───
+  let html = '<div class="hdsr-sheet fade-in">';
+  html += `
+    <div class="hdsr-sheet-header">
+      <span class="hdsr-revision-tag">改訂</span>
+      <span class="hdsr-sheet-title">長谷川式簡易知能評価スケール（HDS-R）</span>
+    </div>
+    <div class="hdsr-sheet-subtitle">採点用紙</div>
   `;
 
-  items.forEach(item => {
-    html += `<div class="answer-item${item.isInfo ? ' answer-item-info' : ''}">`;
-    html += `<div class="answer-question">`;
-    html += `<span class="answer-q-num${item.isInfo ? ' answer-q-num-info' : ''}">${item.num}</span>`;
-    html += `<span style="flex:1;">${escapeHtml(item.q)}${item.suffix ? ' <span style="color:var(--ink-soft); font-size:12px;">（' + escapeHtml(item.suffix) + '）</span>' : ''}</span>`;
-    if (item.score !== undefined) {
-      html += `<span class="answer-score-badge">${item.score} <span style="opacity:0.5; font-size:11px;">/ ${item.scoreMax}</span></span>`;
-    }
-    html += `</div>`;
+  html += '<div class="hdsr-questions">';
 
-    const isEmpty = (item.value === null || item.value === undefined) &&
-                    (!item.valueHtml) &&
-                    (!item.chips || item.chips.length === 0);
+  // Q1
+  html += `
+    <div class="hdsr-q">
+      <div class="hdsr-q-head">
+        <span class="hdsr-q-num">1</span>
+        <span class="hdsr-q-title">お歳はいくつですか？</span>
+        <span class="hdsr-q-rule-inline">正解1点（2歳までの誤差は正解）・不正解0点</span>
+      </div>
+      <div class="hdsr-q-body">
+        <div class="hdsr-row">
+          ${formatAnswer(ageVal ? `${ageVal} 歳` : '', !ageVal)}
+        </div>
+        ${scoreSelect('q1')}
+      </div>
+    </div>
+  `;
 
-    if (isEmpty) {
-      html += `<div class="answer-value empty">— 未回答 —</div>`;
-    } else if (item.chips) {
-      html += `<div class="answer-value-list">`;
-      item.chips.forEach(c => {
-        let cls = 'answer-value-chip';
-        if (c.ok === true) cls += ' chip-ok';
-        else if (c.ok === false) cls += ' chip-ng';
-        html += `<div class="${cls}">${escapeHtml(c.text)}${c.ok === true ? ' <span class="chip-mark">○</span>' : c.ok === false ? ' <span class="chip-mark">×</span>' : ''}</div>`;
-      });
-      html += `</div>`;
-    } else if (item.valueHtml) {
-      html += `<div class="answer-value">${item.valueHtml}</div>`;
+  // Q2
+  const dtFields = [
+    { label: '年', val: dt.year ? `${dt.year}年` : '' },
+    { label: '月', val: dt.month ? `${dt.month}月` : '' },
+    { label: '日', val: dt.day ? `${dt.day}日` : '' },
+    { label: '曜日', val: dt.dow ? `${dt.dow}曜日` : '' }
+  ];
+  html += `
+    <div class="hdsr-q">
+      <div class="hdsr-q-head">
+        <span class="hdsr-q-num">2</span>
+        <span class="hdsr-q-title">今日は何年何月何日ですか？ 何曜日ですか？</span>
+        <span class="hdsr-q-rule-inline">正解1点・不正解0点（年・月・日・曜日 各1点）</span>
+      </div>
+      <div class="hdsr-q-body">
+        ${dtFields.map(f => `
+          <div class="hdsr-row">
+            <span class="hdsr-label">${f.label}</span>
+            ${formatAnswer(f.val, !f.val)}
+          </div>
+        `).join('')}
+        ${scoreSelect('q2')}
+      </div>
+    </div>
+  `;
+
+  // Q3
+  html += `
+    <div class="hdsr-q">
+      <div class="hdsr-q-head">
+        <span class="hdsr-q-num">3</span>
+        <span class="hdsr-q-title">私たちが今いるところはどこですか？</span>
+      </div>
+      <div class="hdsr-q-body">
+        <div class="hdsr-row hdsr-q3-row">
+          <div class="hdsr-q3-answer">
+            ${formatAnswer(placeVal || '', !placeVal)}
+          </div>
+          <div class="hdsr-q3-rule">
+            自発的に答えられたら2点・<br>
+            ヒント後に正解で1点・不正解0点
+          </div>
+        </div>
+        ${scoreSelect('q3')}
+      </div>
+    </div>
+  `;
+
+  // Q4
+  html += `
+    <div class="hdsr-q">
+      <div class="hdsr-q-head">
+        <span class="hdsr-q-num">4</span>
+        <span class="hdsr-q-title">これから言う3つの言葉を言ってみてください。</span>
+      </div>
+      <div class="hdsr-q-rule-block">
+        <span class="hdsr-q-rule">採点：3つ正解 = 3点／2つ正解 = 2点／1つ正解 = 1点／不正解 = 0点</span>
+      </div>
+      <div class="hdsr-q-body">
+        <div class="hdsr-correct">正答：${memWords.map(w => `<span class="hdsr-correct-word">${w}</span>`).join('')}</div>
+        <div class="hdsr-row hdsr-row-chips">
+          <span class="hdsr-label">回答</span>
+          <div class="hdsr-chips">
+            ${memorizeChips.length === 0 ? '<span class="hdsr-empty">未回答</span>' : memorizeChips.map(renderChip).join('')}
+          </div>
+        </div>
+        ${scoreSelect('q4')}
+      </div>
+    </div>
+  `;
+
+  // Q5 — calculation (no "打ち切り" anymore — per requirement)
+  const calcRow = (label, expected, status) => {
+    let answerHtml;
+    if (!status) {
+      answerHtml = '<span class="hdsr-empty">未回答</span>';
     } else {
-      html += `<div class="answer-value"${item.note ? ' style="color:var(--ink-soft); font-style:italic;"' : ''}>${escapeHtml(item.value)}</div>`;
+      const cls = status.ok ? 'hdsr-user-ans hdsr-correct-mark' : 'hdsr-user-ans hdsr-wrong-mark';
+      answerHtml = `<span class="${cls}">${status.value}</span> ${status.ok ? okMark : ngMark}`;
     }
-    html += `</div>`;
-  });
+    return `
+      <div class="hdsr-row">
+        <span class="hdsr-label">${label}</span>
+        <span class="hdsr-expected">（答 ${expected}）</span>
+        ${answerHtml}
+      </div>
+    `;
+  };
 
-  html += `</div>`;
+  html += `
+    <div class="hdsr-q">
+      <div class="hdsr-q-head">
+        <span class="hdsr-q-num">5</span>
+        <span class="hdsr-q-title">100から7を順番に引いてください。</span>
+      </div>
+      <div class="hdsr-q-rule-block">
+        <span class="hdsr-q-rule">採点：各正解で1点／100−7が不正解の場合、2問目も不正解</span>
+      </div>
+      <div class="hdsr-q-body">
+        ${calcRow('100 − 7 はいくつですか？', '93', calc1Status)}
+        ${calcRow('それからまた7を引くと？', '86', calc2Status)}
+        ${scoreSelect('q5')}
+      </div>
+    </div>
+  `;
+
+  // Q6 — reverse digits (no "打ち切り" tag, no skip note)
+  const revRow = (sequence, expected, status) => {
+    let answerHtml;
+    if (!status) {
+      answerHtml = '<span class="hdsr-empty">未回答</span>';
+    } else {
+      const cls = status.ok ? 'hdsr-user-ans hdsr-correct-mark' : 'hdsr-user-ans hdsr-wrong-mark';
+      answerHtml = `<span class="${cls}">${escapeHtml(status.value)}</span> ${status.ok ? okMark : ngMark}`;
+    }
+    return `
+      <div class="hdsr-row">
+        <span class="hdsr-label">${sequence}</span>
+        <span class="hdsr-expected">（${expected}）</span>
+        ${answerHtml}
+      </div>
+    `;
+  };
+
+  html += `
+    <div class="hdsr-q">
+      <div class="hdsr-q-head">
+        <span class="hdsr-q-num">6</span>
+        <span class="hdsr-q-title">私がこれから言う数字を逆から言ってください。</span>
+      </div>
+      <div class="hdsr-q-rule-block">
+        <span class="hdsr-q-rule">採点：各正解で1点／3桁が不正解の場合、4桁も不正解</span>
+      </div>
+      <div class="hdsr-q-body">
+        ${revRow('6 − 8 − 2', '逆唱：2 − 8 − 6', rev1Status)}
+        ${revRow('3 − 5 − 2 − 9', '逆唱：9 − 2 − 5 − 3', rev2Status)}
+        ${scoreSelect('q6')}
+      </div>
+    </div>
+  `;
+
+  // Q7 — delayed recall (no "ヒント機能はないため..." note anymore)
+  html += `
+    <div class="hdsr-q">
+      <div class="hdsr-q-head">
+        <span class="hdsr-q-num">7</span>
+        <span class="hdsr-q-title">先ほど覚えてもらった言葉をもう一度言ってみてください。</span>
+      </div>
+      <div class="hdsr-q-rule-block">
+        <span class="hdsr-q-rule">採点：自発的に答えられた言葉 各2点／ヒントで答えられた言葉 各1点</span>
+      </div>
+      <div class="hdsr-q-body">
+        <div class="hdsr-correct">正答：${memWords.map(w => `<span class="hdsr-correct-word">${w}</span>`).join('')}</div>
+        <div class="hdsr-row hdsr-row-chips">
+          <span class="hdsr-label">回答</span>
+          <div class="hdsr-chips">
+            ${recallChips.length === 0 ? '<span class="hdsr-empty">未回答</span>' : recallChips.map(renderChip).join('')}
+          </div>
+        </div>
+        ${scoreSelect('q7')}
+      </div>
+    </div>
+  `;
+
+  // Q8
+  html += `
+    <div class="hdsr-q">
+      <div class="hdsr-q-head">
+        <span class="hdsr-q-num">8</span>
+        <span class="hdsr-q-title">これから5つの品物を見せます。それを隠しますので何があったか言ってください。</span>
+      </div>
+      <div class="hdsr-q-rule-block">
+        <span class="hdsr-q-rule">採点：5つ正解 = 5点／4つ = 4点／3つ = 3点／2つ = 2点／1つ = 1点／全問不正解 = 0点</span>
+      </div>
+      <div class="hdsr-q-body">
+        <div class="hdsr-correct">正答：${objNames.map(w => `<span class="hdsr-correct-word">${w}</span>`).join('')}</div>
+        <div class="hdsr-row hdsr-row-chips">
+          <span class="hdsr-label">回答</span>
+          <div class="hdsr-chips">
+            ${objChips.length === 0 ? '<span class="hdsr-empty">未回答</span>' : objChips.map(renderChip).join('')}
+          </div>
+        </div>
+        ${scoreSelect('q8')}
+      </div>
+    </div>
+  `;
+
+  // Q9
+  const vegChipsHtml = vegs.length === 0
+    ? '<span class="hdsr-empty">未回答</span>'
+    : vegs.map(v => `<span class="hdsr-chip hdsr-chip-neutral">${escapeHtml(v)}</span>`).join('');
+
+  html += `
+    <div class="hdsr-q">
+      <div class="hdsr-q-head">
+        <span class="hdsr-q-num">9</span>
+        <span class="hdsr-q-title">知っている野菜の名前をできるだけ多く言ってください。</span>
+      </div>
+      <div class="hdsr-q-rule-block">
+        <span class="hdsr-q-rule">採点：10個以上 = 5点／9個 = 4点／8個 = 3点／7個 = 2点／6個 = 1点／0〜5個 = 0点</span>
+      </div>
+      <div class="hdsr-q-body">
+        <div class="hdsr-row hdsr-row-chips">
+          <span class="hdsr-label">回答（全 ${vegs.length} 個）</span>
+          <div class="hdsr-chips">${vegChipsHtml}</div>
+        </div>
+        ${scoreSelect('q9')}
+      </div>
+    </div>
+  `;
+
+  html += '</div>'; // .hdsr-questions
+
+  // Compute initial total
+  let total = 0;
+  for (const k of Object.keys(Q_MAX)) total += getEffectiveScore(k);
+  const totalMax = 30;
+
+  // Total score box
+  html += `
+    <div class="hdsr-total-row">
+      <div class="hdsr-total-label">合計点数</div>
+      <div class="hdsr-total-value">
+        <span class="hdsr-total-num" id="hdsrTotalNum">${total}</span>
+        <span class="hdsr-total-max">/ ${totalMax}</span>
+      </div>
+    </div>
+    <div class="hdsr-total-note">
+      ※ 各問の採点は、必要に応じてプルダウンで手動修正できます。合計点数は自動的に再計算されます。
+    </div>
+  `;
+
+  // 判定方法
+  html += `
+    <div class="hdsr-judgment">
+      <div class="hdsr-judgment-tag">判定方法</div>
+      <div class="hdsr-judgment-text">
+        30点満点で、20点以下のとき、認知症の可能性が高いと判断されます。<br>
+        ただし、長谷川式スケールはあくまで簡易テストなので、被験者の点数が高いから認知症ではない、低いからと言って認知症であると必ずしも断定することは出来ません。
+      </div>
+    </div>
+  `;
+
+  html += `
+    <div class="hdsr-link-row">
+      <button class="btn-small btn-secondary" onclick="showUsageGuide()">使い方と採点方法を見る</button>
+    </div>
+  `;
+
+  html += '</div>'; // .hdsr-sheet
   return html;
 }
 
-// Word readings for matching (kanji ↔ hiragana/katakana)
 const wordReadings = {
   '桜': ['桜', 'さくら', 'サクラ'],
   '猫': ['猫', 'ねこ', 'ネコ'],
