@@ -1948,6 +1948,131 @@
     text-align: center;
   }
 
+  /* ─── PASSWORD MODAL ─── */
+  .pwd-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 110;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: fadeIn 0.25s ease-out;
+  }
+
+  .pwd-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(42,37,32,0.6);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+  }
+
+  .pwd-modal-content {
+    position: relative;
+    max-width: 380px;
+    width: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 36px 32px 28px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    text-align: center;
+    animation: pwdModalIn 0.3s ease-out;
+  }
+
+  @keyframes pwdModalIn {
+    from { opacity: 0; transform: translateY(-12px) scale(0.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .pwd-modal-content::before {
+    content: '';
+    position: absolute;
+    top: 8px; left: 8px; right: 8px; bottom: 8px;
+    border: 1px solid var(--border);
+    pointer-events: none;
+    border-radius: 2px;
+  }
+
+  .pwd-modal-icon {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 36px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: 0.1em;
+    position: relative;
+  }
+
+  .pwd-modal-title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 17px;
+    color: var(--ink);
+    margin-bottom: 6px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    position: relative;
+  }
+
+  .pwd-modal-desc {
+    font-size: 12px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    margin-bottom: 22px;
+    position: relative;
+  }
+
+  .pwd-input {
+    width: 100%;
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 28px;
+    text-align: center;
+    letter-spacing: 0.4em;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-bottom: 2px solid var(--ink-soft);
+    background: var(--bg);
+    color: var(--accent);
+    font-weight: 700;
+    outline: none;
+    border-radius: 2px 2px 0 0;
+    transition: border-color 0.2s;
+    position: relative;
+  }
+
+  .pwd-input:focus {
+    border-bottom-color: var(--accent);
+  }
+
+  .pwd-input.pwd-shake {
+    animation: pwdShake 0.4s ease;
+  }
+
+  @keyframes pwdShake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-5px); }
+    80% { transform: translateX(5px); }
+  }
+
+  .pwd-error {
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--accent);
+    font-family: 'Shippori Mincho', serif;
+    position: relative;
+  }
+
+  .pwd-modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 24px;
+    position: relative;
+  }
+
   /* ─── USAGE GUIDE MODAL (PDF page 1 equivalent) ─── */
   .usage-modal {
     position: fixed;
@@ -2265,6 +2390,29 @@
       <button class="btn btn-secondary btn-small" onclick="restart()">もう一度</button>
     </div>
     <div id="answersReview" class="hidden"></div>
+  </div>
+
+  <!-- PASSWORD MODAL (gating answers review) -->
+  <div id="passwordModal" class="pwd-modal hidden">
+    <div class="pwd-modal-backdrop" onclick="hidePasswordPrompt()"></div>
+    <div class="pwd-modal-content">
+      <div class="pwd-modal-icon">鍵</div>
+      <div class="pwd-modal-title">パスワードを入力してください</div>
+      <div class="pwd-modal-desc">回答の一覧を表示するにはパスワードが必要です</div>
+      <input type="password" 
+             id="passwordInput" 
+             class="pwd-input" 
+             inputmode="numeric" 
+             autocomplete="off"
+             maxlength="8"
+             placeholder="••••"
+             onkeypress="if(event.key==='Enter'){event.preventDefault();submitPassword();}">
+      <div id="passwordError" class="pwd-error hidden"></div>
+      <div class="pwd-modal-actions">
+        <button class="btn-small btn-prev" onclick="hidePasswordPrompt()">キャンセル</button>
+        <button class="btn-small btn-next" onclick="submitPassword()">確認</button>
+      </div>
+    </div>
   </div>
 
   <!-- USAGE GUIDE MODAL (PDF page 1 equivalent) -->
@@ -3490,20 +3638,71 @@ function hideUsageGuide() {
 function toggleAnswersReview() {
   const reviewEl = document.getElementById('answersReview');
   const btn = document.getElementById('showAnswersBtn');
-  
+
   if (reviewEl.classList.contains('hidden')) {
-    reviewEl.innerHTML = buildAnswersReview();
-    reviewEl.classList.remove('hidden');
-    btn.textContent = '回答を隠す';
-    // Smooth scroll to review
-    setTimeout(() => {
-      reviewEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 100);
+    // Currently hidden — require password before showing
+    showPasswordPrompt();
   } else {
+    // Currently visible — hide without password
     reviewEl.classList.add('hidden');
     reviewEl.innerHTML = '';
     btn.textContent = '回答を表示';
   }
+}
+
+const ANSWERS_PASSWORD = '1120';
+
+function showPasswordPrompt() {
+  const modal = document.getElementById('passwordModal');
+  const input = document.getElementById('passwordInput');
+  const errorEl = document.getElementById('passwordError');
+  if (!modal || !input) return;
+  input.value = '';
+  if (errorEl) errorEl.classList.add('hidden');
+  modal.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => input.focus(), 50);
+}
+
+function hidePasswordPrompt() {
+  const modal = document.getElementById('passwordModal');
+  if (!modal) return;
+  modal.classList.add('hidden');
+  document.body.style.overflow = '';
+}
+
+function submitPassword() {
+  const input = document.getElementById('passwordInput');
+  const errorEl = document.getElementById('passwordError');
+  if (!input) return;
+
+  if (input.value === ANSWERS_PASSWORD) {
+    hidePasswordPrompt();
+    revealAnswersReview();
+  } else {
+    if (errorEl) {
+      errorEl.classList.remove('hidden');
+      errorEl.textContent = 'パスワードが違います';
+    }
+    input.value = '';
+    // Shake animation feedback
+    input.classList.remove('pwd-shake');
+    void input.offsetWidth;
+    input.classList.add('pwd-shake');
+    input.focus();
+  }
+}
+
+function revealAnswersReview() {
+  const reviewEl = document.getElementById('answersReview');
+  const btn = document.getElementById('showAnswersBtn');
+  if (!reviewEl || !btn) return;
+  reviewEl.innerHTML = buildAnswersReview();
+  reviewEl.classList.remove('hidden');
+  btn.textContent = '回答を隠す';
+  setTimeout(() => {
+    reviewEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
 }
 
 // Score overrides: when the user manually adjusts a question's score in the review.
